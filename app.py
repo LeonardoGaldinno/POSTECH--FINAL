@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from client.database import BigQuery
 
-st.logo('img\Passos-magicos-icon-cor-removebg-preview.png')
+st.logo('img/Passos-magicos-icon-cor-removebg-preview.png')
 
 page_introduction = st.Page('pages\introduction.py', title="Introdução", icon=":material/home:")
 page_report = st.Page('pages/report.py', title="Relatório", icon=":material/description:")
