@@ -1,9 +1,7 @@
 import streamlit as st
 
-col1, col2, col3 = st.columns([1, 4, 1])
-with col2:
-    st.header("Base de Dados")
-    st.write("""
+st.header("Base de Dados")
+st.write("""
             Para este projeto, utilizamos dados históricos de preços do petróleo brent, que são fornecidos pelo site do Instituto de Pesquisa 
             Econômica Aplicada (IPEA), como também dados de consumo mundial de petróleo de fontes como: Energy Information Administration (EIA), 
             International Energy Agency (IEA) e Organization of the Petroleum Exporting Countries (OPEC).
