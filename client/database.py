@@ -6,16 +6,27 @@ import json
 
 class BigQuery:
 
-    def __init__(self,  credential: str, dataset : str = 'fase_5'):
+    def __init__(self, dataset : str = 'fase_5'):
         self.dataset = dataset
-        self.client = self._create_credentials(credential)
+        self.client = self._create_credentials()
     
-    def _create_credentials(self, credential):
+    def _create_credentials(self):
 
-        with open(credential, 'r') as file:
-            credential = json.load(file)
+        credentials = {
+            "type": "service_account",
+            "project_id": st.secrets["project_id"],
+            "private_key_id": st.secrets["private_key_id"],
+            "private_key": st.secrets["private_key"].replace("\\n", "\n"),
+            "client_email": st.secrets["client_email"],
+            "client_id": st.secrets["client_id"],
+            "auth_uri": st.secrets["auth_uri"],
+            "token_uri": st.secrets["token_uri"],
+            "auth_provider_x509_cert_url": st.secrets["auth_provider_x509_cert_url"],
+            "client_x509_cert_url": st.secrets["client_x509_cert_url"],
+        }
 
-        client = bigquery.Client.from_service_account_info(credential)
+
+        client = bigquery.Client.from_service_account_info(credentials)
 
         return client
     

@@ -1,32 +1,28 @@
 import streamlit as st 
 
-
 st.title("Introdução")
 st.write("""
-                Bem-vindo(a) ao nosso projeto de análise e previsão de preços do petróleo Brent. 
-                Este projeto foi desenvolvido para atender a uma demanda específica de um cliente, 
-                que busca insights detalhados e previsões precisas para apoiar suas decisões estratégicas.
-                """)
+         Bem-vindo(a) ao nosso projeto desenvolvido para a Passos Mágicos. O objetivo deste trabalho é explorar e analisar dados educacionais de crianças e jovens atendidos pela ONG, gerando insights relevantes para apoiar suas ações estratégicas e ampliar o impacto social da organização.""")
+
+st.write("""Nosso projeto está dividido em três componentes principais:""")
+
+st.markdown("##### 📋 Análise de Dados Educacionais")
+st.write("""
+         Realizamos uma análise dados  de desempenho dos estudantes entre 2020 e 2024. Utilizamos visualizações para destacar tendências, identificar padrões de evolução e compreender os principais fatores que influenciam o progresso dos alunos.
+""")
+
+
+st.markdown("##### 📊 Dashboard Interativo")
+st.write("""
+         Criamos um dashboard dinâmico que permite uma visualização intuitiva dos indicadores de desempenho. Esse painel auxilia a ONG a monitorar métricas essenciais, entender o perfil dos estudantes atendidos e tomar decisões informadas com base nos dados.
+""")
+
+
+st.markdown("##### 🤖 Modelo Preditivo")
+st.write("""
+         Implementamos um modelo de Machine Learning para prever o comportamento e desenvolvimento dos estudantes com base em variáveis educacionais. Esse modelo visa oferecer uma ferramenta preditiva para antecipar desafios e otimizar o suporte oferecido pela ONG.
+""")
 
 st.write("""
-                Nosso trabalho está dividido em três componentes principais:
-                """)
-st.markdown("##### Análise de Dados Históricos")
-st.write("""Realizamos uma análise detalhada dos dados históricos de preços do petróleo Brent, 
-                destacando as principais tendências e variações ao longo do tempo. Utilizamos gráficos para ilustrar essas informações 
-                de forma clara e compreensível.""")
-
-
-st.markdown("##### Dashboard Interativo")
-st.write("""Desenvolvemos um dashboard dinâmico que oferece uma visualização interativa dos preços do petróleo. 
-                Este dashboard considera fatores como eventos geopolíticos, crises econômicas e mudanças na demanda global por energia, 
-                proporcionando uma compreensão aprofundada das flutuações do mercado.""")
-
-
-st.markdown("##### Modelo de Machine Learning")
-st.write("""Criamos um modelo de Machine Learning especializado em séries temporais para prever os preços do petróleo diariamente. 
-                Incluímos uma análise de desempenho do modelo e as previsões geradas, demonstrando a eficácia e a aplicabilidade prática do nosso trabalho. O modelo que trouxe uma melhor previsao foi o prophet, usando uma base de dados de 5 anos.""")
-
-st.write("""O resultado deste projeto é uma combinação de visualizações interativas e previsões precisas que oferecem uma visão 
-                abrangente do mercado de petróleo com insights adicionados em um relatório. As informações detalhadas sobre a análise de dados, o dashboard interativo e o 
-                modelo de Machine Learning estão disponíveis em suas respectivas abas: Relatório, Dashboard e Modelo Machine Learning.""")
+         O resultado deste projeto combina visualizações interativas e análises detalhadas para fornecer à Passos Mágicos um panorama completo do impacto de suas ações. As informações sobre a análise de dados, o dashboard e o modelo preditivo estão disponíveis nas respectivas seções deste trabalho.
+""")
