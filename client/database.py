@@ -13,9 +13,9 @@ class BigQuery:
     def _create_credentials(self):
 
          # Carrega secrets do Streamlit
-        project_id = st.secrets["google_cloud"]["project_id"]
-        private_key = st.secrets["google_cloud"]["private_key"].replace("\\n", "\n") 
-        client_email = st.secrets["google_cloud"]["client_email"]
+        project_id = st.secrets["project_id"]
+        private_key = st.secrets["private_key"].replace("\\n", "\n") 
+        client_email = st.secrets["client_email"]
         
     # Prepara o Credentials Dictionary
         credentials = {
