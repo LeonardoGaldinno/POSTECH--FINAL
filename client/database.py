@@ -12,18 +12,38 @@ class BigQuery:
     
     def _create_credentials(self):
 
+         # Carrega secrets do Streamlit
+        project_id = st.secrets["google_cloud"]["project_id"]
+        private_key = st.secrets["google_cloud"]["private_key"].replace("\\n", "\n") 
+        client_email = st.secrets["google_cloud"]["client_email"]
+        
+    # Prepara o Credentials Dictionary
         credentials = {
             "type": "service_account",
-            "project_id": st.secrets["google_cloud"]["project_id"],
+            "project_id": project_id,
             "private_key_id": st.secrets["google_cloud"]["private_key_id"],
-            "private_key": st.secrets["google_cloud"]["private_key"].replace("\\n", "\n"),
-            "client_email": st.secrets["google_cloud"]["client_email"],
+            "private_key": private_key,
+            "client_email": client_email,
             "client_id": st.secrets["google_cloud"]["client_id"],
             "auth_uri": st.secrets["google_cloud"]["auth_uri"],
             "token_uri": st.secrets["google_cloud"]["token_uri"],
             "auth_provider_x509_cert_url": st.secrets["google_cloud"]["auth_provider_x509_cert_url"],
             "client_x509_cert_url": st.secrets["google_cloud"]["client_x509_cert_url"],
-}
+        }
+
+
+#         credentials = {
+#             "type": "service_account",
+#             "project_id": st.secrets["google_cloud"]["project_id"],
+#             "private_key_id": st.secrets["google_cloud"]["private_key_id"],
+#             "private_key": st.secrets["google_cloud"]["private_key"].replace("\\n", "\n"),
+#             "client_email": st.secrets["google_cloud"]["client_email"],
+#             "client_id": st.secrets["google_cloud"]["client_id"],
+#             "auth_uri": st.secrets["google_cloud"]["auth_uri"],
+#             "token_uri": st.secrets["google_cloud"]["token_uri"],
+#             "auth_provider_x509_cert_url": st.secrets["google_cloud"]["auth_provider_x509_cert_url"],
+#             "client_x509_cert_url": st.secrets["google_cloud"]["client_x509_cert_url"],
+# }
 
 
 
