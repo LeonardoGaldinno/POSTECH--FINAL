@@ -1,0 +1,83 @@
+[33mcommit 11ce8581bc347653a002aab959d1310d280ae866[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: rborgesc@nttdata.com <rborgesc@nttdata.com>
+Date:   Sun Feb 2 16:44:52 2025 -0300
+
+    hiding keys
+
+[33mcommit 2f54fabc80a5b9927d1f6f91960939cb4562ff15[m
+Author: rborgesc@nttdata.com <rborgesc@nttdata.com>
+Date:   Sun Feb 2 16:39:12 2025 -0300
+
+    updating report.py
+
+[33mcommit d1ec096dff3b25307bac79c097554e025df36a44[m[33m ([m[1;31morigin/main[m[33m)[m
+Author: rborgesc@nttdata.com <rborgesc@nttdata.com>
+Date:   Sat Feb 1 18:04:05 2025 -0300
+
+    updating changes
+
+[33mcommit 8761406baf13031b5ac0efa2f58d54739978b449[m
+Author: rborgesc@nttdata.com <rborgesc@nttdata.com>
+Date:   Sat Feb 1 14:25:01 2025 -0300
+
+    initial version
+
+[33mcommit 65ecb67a47afe7b3fa5436b973bdd51e407fa386[m
+Author: rborgesc@nttdata.com <rborgesc@nttdata.com>
+Date:   Sat Feb 1 13:46:56 2025 -0300
+
+    updates
+
+[33mcommit 6f06e234c525c9efedf9a0eea7c921e1d5efe095[m
+Author: rborgesc@nttdata.com <rborgesc@nttdata.com>
+Date:   Sat Feb 1 13:45:33 2025 -0300
+
+    u
+
+[33mcommit a55f9ff0c4971ee6c660110bfaac1a2cfae8a8e8[m
+Author: rborgesc@nttdata.com <rborgesc@nttdata.com>
+Date:   Sat Feb 1 13:44:43 2025 -0300
+
+    update app.py
+
+[33mcommit 93687dae4de6ae25ccd5ab24cef3872253b6b4c0[m
+Author: rborgesc@nttdata.com <rborgesc@nttdata.com>
+Date:   Sat Feb 1 13:38:43 2025 -0300
+
+    update requirements.txt
+
+[33mcommit 81a435d5a8334744b29d23409d18876050c785b7[m
+Author: rborgesc <160146528+rborgesc@users.noreply.github.com>
+Date:   Sat Feb 1 12:41:48 2025 -0300
+
+    Added Dev Container Folder
+
+[33mcommit 25619269f51050559e344dfab8ce04e44cbab5f8[m
+Author: rborgesc@nttdata.com <rborgesc@nttdata.com>
+Date:   Sat Feb 1 12:40:22 2025 -0300
+
+    update requirements.txt
+
+[33mcommit fa13b97c5127a4e052196d4ae88814ee3192eeb3[m
+Author: rborgesc@nttdata.com <rborgesc@nttdata.com>
+Date:   Sat Feb 1 12:27:53 2025 -0300
+
+    add requirements.txt
+
+[33mcommit 2fcded9ad3ec3b33c7b8e7a26ebd6db461662f8c[m
+Author: rborgesc <160146528+rborgesc@users.noreply.github.com>
+Date:   Sat Feb 1 12:27:25 2025 -0300
+
+    Create README.md
+
+[33mcommit 8972e82be679e034c3bccff95bf900abbd084f40[m
+Author: rborgesc@nttdata.com <rborgesc@nttdata.com>
+Date:   Sat Feb 1 12:25:05 2025 -0300
+
+    defining initial structure
+
+[33mcommit 56e391692904549d6123dfb4cde9362e52bcaf4d[m
+Author: rborgesc <rborgesc@nttdata.com>
+Date:   Sun Jan 26 17:43:42 2025 -0300
+
+    criando estrutura streamlit
