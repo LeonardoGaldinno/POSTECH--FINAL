@@ -21,14 +21,14 @@ class BigQuery:
         credentials = {
             "type": "service_account",
             "project_id": project_id,
-            "private_key_id": st.secrets["google_cloud"]["private_key_id"],
+            "private_key_id": st.secrets["private_key_id"],
             "private_key": private_key,
             "client_email": client_email,
-            "client_id": st.secrets["google_cloud"]["client_id"],
-            "auth_uri": st.secrets["google_cloud"]["auth_uri"],
-            "token_uri": st.secrets["google_cloud"]["token_uri"],
-            "auth_provider_x509_cert_url": st.secrets["google_cloud"]["auth_provider_x509_cert_url"],
-            "client_x509_cert_url": st.secrets["google_cloud"]["client_x509_cert_url"],
+            "client_id": st.secrets["client_id"],
+            "auth_uri": st.secrets["auth_uri"],
+            "token_uri": st.secrets["token_uri"],
+            "auth_provider_x509_cert_url": st.secrets["auth_provider_x509_cert_url"],
+            "client_x509_cert_url": st.secrets["client_x509_cert_url"],
         }
 
 
