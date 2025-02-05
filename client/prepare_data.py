@@ -16,7 +16,7 @@ class PrepareData:
         df_pede_passos_tab2024 = client.load_table(tbPede2024)
 
         #Classificando instituicoes de ensino
-        df_pede_passos_tab2022 = classificador.categorizar_escolas(,'Instituição de ensino')
+        df_pede_passos_tab2022 = classificador.categorizar_escolas(df_pede_passos_tab2022,'Instituição de ensino')
 
         #Selecionando Colunas uteis
         df_pede_passos_tab2022 = df_pede_passos_tab2022[['CategoriaEscola_Instituição de ensino','RA','Ano ingresso','Fase','Fase ideal',
@@ -118,7 +118,7 @@ class PrepareData:
 
         return df_escolas_defas_unpivoted
 
-    def df_escolas_pedra_unpivoted():
+    def df_escolas_pedra_unpivoted(self):
 
         df_final = self.df_pede_merged
 
