@@ -1,6 +1,6 @@
 from client.database import BigQuery
 from client.classificador import Classificador
-from client.utils import Utils
+from client.Utils import Utils
 
 class PrepareData:
 
