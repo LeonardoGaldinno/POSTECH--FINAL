@@ -193,6 +193,8 @@ st.write("""Por fim, Verificamos também a diminuição da defasagem moderada e 
 
 # st.pyplot(fig)
 
+
+# Criar uma lista para armazenar os gráficos
 df = df_escolas_defas_unpivoted.copy()
 
 # Criar uma lista para armazenar os gráficos
@@ -226,6 +228,7 @@ layout = alt.vconcat(*rows)
 
 st.write("# Defasagem de alunos por categoria de escola e ano")
 st.altair_chart(layout, use_container_width=True)
+
 ### --------------- DEFASAGEM DE ALUNOS POR ESCOLA E ANO --------------------- ###
 
 st.divider()
