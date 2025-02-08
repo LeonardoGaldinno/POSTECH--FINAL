@@ -81,7 +81,7 @@ evolucao_classificacao = evolucao_alunos.groupby(['SiglaPeriodo', 'Classificacao
 
 # Resetando o índice para transformar os dados em formato longo
 evolucao_classificacao_long = evolucao_classificacao.reset_index().melt(id_vars=['SiglaPeriodo'], var_name='ClassificacaoDescricao', value_name='NumeroDeAlunos')
-st.write(periododf)
+st.write(alunos_classificacao_3_2021)
 
 # Criar o gráfico com Altair
 chart = alt.Chart(evolucao_classificacao_long).mark_line(point=True).encode(
