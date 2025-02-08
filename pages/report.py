@@ -272,7 +272,6 @@ chart = alt.Chart(df_escolas_pedra_unpivoted).mark_bar().encode(
     x='Ano:N',
     y='Valor:Q',
     color='CategoriaEscola_Instituição de ensino:N',
-    column='CategoriaEscola_Instituição de ensino:N',
     tooltip=['Ano', 'CategoriaEscola_Instituição de ensino', 'Valor']
 ).properties(
     width=200,
@@ -281,8 +280,11 @@ chart = alt.Chart(df_escolas_pedra_unpivoted).mark_bar().encode(
 )
 
 # Adicionar os valores no topo das barras
-text = chart.mark_text(dy=-10, color='black').encode(
-    text='Valor:Q'
+text = alt.Chart(df_escolas_pedra_unpivoted).mark_text(dy=-10, color='black').encode(
+    x='Ano:N',
+    y='Valor:Q',
+    text='Valor:Q',
+    color='CategoriaEscola_Instituição de ensino:N'
 )
 
 # Combinar o gráfico de barras com os textos
