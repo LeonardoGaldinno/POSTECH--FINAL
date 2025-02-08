@@ -11,9 +11,9 @@ class PrepareData:
         self.utils = Utils()
 
     def df_pede_merged(self):
-        df_pede_passos_tab2022 = self.client.load_table(tbPede2022)
-        df_pede_passos_tab2023 = self.client.load_table(tbPede2023)
-        df_pede_passos_tab2024 = self.client.load_table(tbPede2024)
+        df_pede_passos_tab2022 = self.client.load_table('tbPede2022')
+        df_pede_passos_tab2023 = self.client.load_table('tbPede2023')
+        df_pede_passos_tab2024 = self.client.load_table('tbPede2024')
 
         #Classificando instituicoes de ensino
         df_pede_passos_tab2022 = classificador.categorizar_escolas(df_pede_passos_tab2022,'Instituição de ensino')
