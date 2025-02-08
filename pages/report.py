@@ -115,20 +115,37 @@ st.write("""Essas observações indicam que, embora as escolas públicas tenham 
 # st.pyplot(fig)
 
 # Criar o gráfico em Altair
+df = df_escolas_perf_unpivoted.copy()
+
+# Criar o gráfico em Altair
 grafico = (
-    alt.Chart(df_escolas_perf_unpivoted)
-    .mark_line(point=True)  # Adiciona marcadores
+    alt.Chart(df)
+    .mark_line()
     .encode(
         x=alt.X("Ano:O", title="Ano", axis=alt.Axis(labelAngle=0)),
         y=alt.Y("Valor:Q", title="Mediana"),
         color=alt.Color("CategoriaEscola_Instituição de ensino:N", title="Categoria"),
         strokeDash=alt.StrokeDash("Metrica:N", title="Métrica")
     )
-    .properties(title="Mediana das Métricas por Ano e Categoria de Escola", width=700, height=400)
 )
 
+# Adicionar marcadores diferentes por Métrica
+pontos = (
+    alt.Chart(df)
+    .mark_point()
+    .encode(
+        x="Ano:O",
+        y="Valor:Q",
+        color="CategoriaEscola_Instituição de ensino:N",
+        shape="Metrica:N"
+    )
+)
+
+# Combinar os gráficos
+grafico_final = (grafico + pontos).properties(title="Mediana das Métricas por Ano e Categoria de Escola", width=700, height=400)
+
 # Exibir no Streamlit
-st.altair_chart(grafico, use_container_width=True)
+st.altair_chart(grafico_final, use_container_width=True)
 st.write(df_escolas_perf_unpivoted)
 
 
