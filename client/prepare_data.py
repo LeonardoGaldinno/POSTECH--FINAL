@@ -128,7 +128,7 @@ class PrepareData:
 
     def df_escolas_pedra_unpivoted(self):
 
-        df_final = self.df_pede_merged
+        df_final = self.df_pede_merged()
 
         df_escolas_pedra = df_final.groupby(['CategoriaEscola_Instituição de ensino'])[['Pedra_20_num','Pedra_21_num','Pedra_22_num','Pedra_23_num','Pedra_24_num']].quantile(0.80)
         df_escolas_pedra = df_escolas_pedra.reset_index()
