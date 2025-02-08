@@ -28,7 +28,7 @@ class Utils:
             return 2024
         return None
 
-    def get_year(metrica):
+    def get_year(self,metrica):
         if '22' in metrica:
             return 2022
         elif '23' in metrica:
