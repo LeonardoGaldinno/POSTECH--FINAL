@@ -77,6 +77,8 @@ evolucao_alunos = periododf[periododf['IdAluno'].isin(alunos_ids)]
 evolucao_classificacao = evolucao_alunos.groupby(['SiglaPeriodo', 'ClassificacaoDescricao']).size().unstack(fill_value=0)
 
 df_melted = evolucao_classificacao.melt(ignore_index=False, var_name="Classificacao", value_name="Numero de Alunos").reset_index()
+st.write(df_melted)
+
 
 # Criar o gráfico com Altair
 chart = (
