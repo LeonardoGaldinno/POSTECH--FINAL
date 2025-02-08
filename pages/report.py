@@ -75,9 +75,9 @@ evolucao_alunos = periododf[periododf['IdAluno'].isin(alunos_ids)]
 
 # Agrupar os dados por ano e classificação
 evolucao_classificacao = evolucao_alunos.groupby(['SiglaPeriodo', 'ClassificacaoDescricao']).size().unstack(fill_value=0)
-
-df_melted = evolucao_classificacao.melt(ignore_index=False, var_name="Classificacao", value_name="Numero de Alunos").reset_index()
-st.write(df_melted)
+df.index = evolucao_classificacao.index.astype(str)  # Converter índice para string
+df = df.reset_index()  # Transformar índice em coluna
+df_melted = df.melt(id_vars=["SiglaPeriodo"], var_name="Classificacao", value_name="Numero de Alunos")
 
 
 # Criar o gráfico com Altair
