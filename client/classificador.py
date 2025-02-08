@@ -12,7 +12,7 @@ class Classificador:
 
     def categorizar_escolas(self, df, coluna):
         
-        df[f'CategoriaEscola_{coluna}'] = df[coluna].apply(classificar)
+        df[f'CategoriaEscola_{coluna}'] = df[coluna].apply(self.classificar)
 
         return df
 
