@@ -68,6 +68,9 @@ st.markdown("""#### Análise da evolução das Classificações ao Longo dos Ano
 # Filtrar alunos com classificação 3 em 2021
 
 # Filtrar alunos com classificação 3 em 2021
+# Remover qualquer vírgula e garantir que seja um valor numérico ou string
+periododf['SiglaPeriodo'] = periododf['SiglaPeriodo'].astype(str).str.replace(',', '')
+
 alunos_classificacao_3_2021 = periododf[(periododf['ClassificacaoDescricao'] == 3) & (periododf['SiglaPeriodo'] == 2021)]
 
 # Obter os IDs dos alunos
