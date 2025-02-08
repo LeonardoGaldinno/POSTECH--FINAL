@@ -3,6 +3,7 @@ from client.database import BigQuery
 from client.prepare_data import PrepareData
 import altair as alt 
 import matplotlib.pyplot as plt
+import seaborn as sns
 
 
 handler = PrepareData()
