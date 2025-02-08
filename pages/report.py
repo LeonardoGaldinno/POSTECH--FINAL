@@ -20,6 +20,8 @@ st.divider()
 ### --------------- DF PERÍODO ------------------------------------###
 st.markdown("""#### Análise de distribuição da classificação dos alunos.""")
 
+df_distribuicao = periododf.copy()
+
 df_distribuicao['ClassificacaoDescricao'] = periododf['ClassificacaoDescricao'].map({1: '1 - Bom', 2: '2 - Regular', 3: '3 - Ruim'})
 
 
