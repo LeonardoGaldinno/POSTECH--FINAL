@@ -15,7 +15,7 @@ class Utils:
             return 'Severa'
 
 
-    def get_year2(self, metrica):
+    def get_year(self, metrica):
         if '20' in metrica:
             return 2020
         elif '21' in metrica:
