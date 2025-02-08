@@ -204,6 +204,7 @@ for year in years:
     for school_type in school_types:
         year_school_data = df_escolas_defas_unpivoted[(df_escolas_defas_unpivoted['Ano'] == year) & (df_escolas_defas_unpivoted['CategoriaEscola_Instituição de ensino'] == school_type)]
         defasagem_totals = year_school_data.groupby('Defasagem_categoria')['Value'].sum().reset_index()
+        defasagem_totals["Percentage"] = (defasagem_totals["Value"] / defasagem_totals["Value"].sum()) * 100
         
         chart = (
             alt.Chart(defasagem_totals)
@@ -211,16 +212,16 @@ for year in years:
             .encode(
                 theta=alt.Theta(field="Value", type="quantitative"),
                 color=alt.Color(field="Defasagem_categoria", type="nominal", legend=alt.Legend(title="Defasagem Categoria")),
-                tooltip=["Defasagem_categoria", "Value"]
+                tooltip=["Defasagem_categoria", "Value", alt.Tooltip("Percentage:Q", format=".1f", title="%")]
             )
-            .properties(title=f"{school_type} - {year}", width=100, height=100)
+            .properties(title=f"{school_type} - {year}", width=200, height=200)
         )
         
         charts.append(chart)
 
-# Organizar os gráficos em um layout
+# Organizar os gráficos em um layout empilhado
 st.write("# Defasagem de alunos por categoria de escola e ano")
-st.altair_chart(alt.hconcat(*charts), use_container_width=True)
+st.altair_chart(alt.vconcat(*charts), use_container_width=True)
 
 ### --------------- DEFASAGEM DE ALUNOS POR ESCOLA E ANO --------------------- ###
 
