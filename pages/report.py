@@ -95,7 +95,8 @@ chart = alt.Chart(evolucao_classificacao_long).mark_line(point=True).encode(
 )
 
 # Exibir o gráfico no Streamlit
-st.altair_chart(chart, use_container_width=True)
+# st.altair_chart(chart, use_container_width=True)
+st.write(chart)
 
 ### --------------- DF EVOLUÇÃO -----------------------------------###
 
