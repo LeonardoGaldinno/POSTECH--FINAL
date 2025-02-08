@@ -253,23 +253,46 @@ st.write("""Podemos observar que, nas escolas públicas, de 2020 a 2022, 80% dos
 
 st.write("""Isso mostra que o setor público enfrentou mais dificuldades ao longo dos anos de ter um número considerável de alunos atingindo níveis máximos das pedras.
 """)
-fig, ax = plt.subplots(figsize=(10, 3))
-ax = sns.barplot(x='Ano', y='Valor', hue='CategoriaEscola_Instituição de ensino', data=df_escolas_pedra_unpivoted, palette="tab10")
-ax.set_title('Percentil 80 da Métrica Pedra por Ano e Categoria de Escola')
-ax.set_xlabel('Ano')
-ax.set_ylabel('Valor do Percentil 80')
-ax.legend(title='Categoria de Escola', bbox_to_anchor=(1.02, 1), loc='upper left')
+# fig, ax = plt.subplots(figsize=(10, 3))
+# ax = sns.barplot(x='Ano', y='Valor', hue='CategoriaEscola_Instituição de ensino', data=df_escolas_pedra_unpivoted, palette="tab10")
+# ax.set_title('Percentil 80 da Métrica Pedra por Ano e Categoria de Escola')
+# ax.set_xlabel('Ano')
+# ax.set_ylabel('Valor do Percentil 80')
+# ax.legend(title='Categoria de Escola', bbox_to_anchor=(1.02, 1), loc='upper left')
 
-for p in ax.patches:
-    if p.get_height() != 0.0:
-        ax.annotate(format(p.get_height(), '.2f'),
-                    (p.get_x() + p.get_width() / 2., p.get_height() / 2),
-                    ha='center', va='center',
-                    xytext=(0, 0),
-                    textcoords='offset points')
+# for p in ax.patches:
+#     if p.get_height() != 0.0:
+#         ax.annotate(format(p.get_height(), '.2f'),
+#                     (p.get_x() + p.get_width() / 2., p.get_height() / 2),
+#                     ha='center', va='center',
+#                     xytext=(0, 0),
+#                     textcoords='offset points')
 
-plt.tight_layout()
-st.pyplot(fig)
+# plt.tight_layout()
+# st.pyplot(fig)
+
+chart = alt.Chart(df_escolas_pedra_unpivoted).mark_bar().encode(
+    x='Ano:N',
+    y='Valor:Q',
+    color='CategoriaEscola_Instituição de ensino:N',
+    column='CategoriaEscola_Instituição de ensino:N',
+    tooltip=['Ano', 'CategoriaEscola_Instituição de ensino', 'Valor']
+).properties(
+    width=200,
+    height=300,
+    title='Percentil 80 da Métrica Pedra por Ano e Categoria de Escola'
+)
+
+# Adicionar os valores no topo das barras
+text = chart.mark_text(dy=-10, color='black').encode(
+    text='Valor:Q'
+)
+
+# Combinar o gráfico de barras com os textos
+final_chart = chart + text
+
+# Exibir no Streamlit
+st.altair_chart(final_chart, use_container_width=True)
 
 ### --------------- MÉTRICA PEDRA POR ANO E ESCOLA --------------------- ###
 
