@@ -62,7 +62,7 @@ evolucao_classificacao = evolucao_alunos.groupby(['SiglaPeriodo', 'Classificacao
 
 # Resetando o índice para transformar os dados em formato longo
 evolucao_classificacao_long = evolucao_classificacao.reset_index().melt(id_vars=['SiglaPeriodo'], var_name='ClassificacaoDescricao', value_name='NumeroDeAlunos')
-st.write(periododf)
+
 
 # Criar o gráfico com Altair
 chart = alt.Chart(evolucao_classificacao_long).mark_line(point=True).encode(
@@ -96,23 +96,40 @@ st.write("""Por outro lado, as escolas públicas mostraram um crescimento em alg
 
 st.write("""Essas observações indicam que, embora as escolas públicas tenham feito progressos notáveis até 2023, o desempenho não se manteve de forma consistente, com uma leve queda em 2024. Já as escolas particulares mostraram estabilidade e continuidade no alto desempenho, o que aponta para a necessidade da Passos Mágicos de reforçar as estratégias nas escolas públicas, a fim de consolidar os avanços e evitar retrocessos.""")
 
-# Criar a figura
-fig, ax = plt.subplots(figsize=(12, 6))
+# # Criar a figura
+# fig, ax = plt.subplots(figsize=(12, 6))
 
-sns.lineplot(
-    x='Ano', y='Valor', hue='CategoriaEscola_Instituição de ensino', style='Metrica',
-    data=df_escolas_perf_unpivoted, markers=True, markersize=8, ax=ax
+# sns.lineplot(
+#     x='Ano', y='Valor', hue='CategoriaEscola_Instituição de ensino', style='Metrica',
+#     data=df_escolas_perf_unpivoted, markers=True, markersize=8, ax=ax
+# )
+
+# ax.set_title('Mediana das Métricas por Ano e Categoria de Escola')
+# ax.set_xlabel('Ano')
+# ax.set_ylabel('Mediana')
+# ax.set_xticks(df_escolas_perf_unpivoted['Ano'].unique())
+# ax.legend(title='Categoria / Métrica', bbox_to_anchor=(1.05, 1), loc='upper left')
+# ax.grid(True, linestyle='--', alpha=0.5)
+
+# # Exibir no Streamlit
+# st.pyplot(fig)
+
+# Criar o gráfico em Altair
+grafico = (
+    alt.Chart(df_escolas_perf_unpivoted)
+    .mark_line(point=True)  # Adiciona marcadores
+    .encode(
+        x=alt.X("Ano:O", title="Ano", axis=alt.Axis(labelAngle=0)),
+        y=alt.Y("Valor:Q", title="Mediana"),
+        color=alt.Color("CategoriaEscola_Instituição de ensino:N", title="Categoria"),
+        strokeDash=alt.StrokeDash("Metrica:N", title="Métrica")
+    )
+    .properties(title="Mediana das Métricas por Ano e Categoria de Escola", width=700, height=400)
 )
 
-ax.set_title('Mediana das Métricas por Ano e Categoria de Escola')
-ax.set_xlabel('Ano')
-ax.set_ylabel('Mediana')
-ax.set_xticks(df_escolas_perf_unpivoted['Ano'].unique())
-ax.legend(title='Categoria / Métrica', bbox_to_anchor=(1.05, 1), loc='upper left')
-ax.grid(True, linestyle='--', alpha=0.5)
-
 # Exibir no Streamlit
-st.pyplot(fig)
+st.altair_chart(grafico, use_container_width=True)
+
 
 ### --------------- MÉTRICAS POR ANO E ESCOLA --------------------- ###
 
