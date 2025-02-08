@@ -214,14 +214,17 @@ for year in years:
                 color=alt.Color(field="Defasagem_categoria", type="nominal", legend=alt.Legend(title="Defasagem Categoria")),
                 tooltip=["Defasagem_categoria", "Value", alt.Tooltip("Percentage:Q", format=".1f", title="%")]
             )
-            .properties(title=f"{school_type} - {year}", width=200, height=200)
+            .properties(title=f"{school_type} - {year}", width=100, height=100)
         )
         
         charts.append(chart)
 
 # Organizar os gráficos em um layout empilhado
+charts_1 = [:3]
+charts_3 = [3:]
 st.write("# Defasagem de alunos por categoria de escola e ano")
-st.altair_chart(alt.vconcat(*charts), use_container_width=True)
+st.altair_chart(alt.vconcat(*charts_1), use_container_width=True)
+st.altair_chart(alt.vconcat(*charts_2), use_container_width=True)
 
 ### --------------- DEFASAGEM DE ALUNOS POR ESCOLA E ANO --------------------- ###
 
