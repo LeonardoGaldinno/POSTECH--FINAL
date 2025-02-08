@@ -22,7 +22,7 @@ st.markdown("""#### Análise de distribuição da classificação dos alunos."""
 
 df_distribuicao = periododf.copy()
 
-df_distribuicao['ClassificacaoDescricao'] = periododf['ClassificacaoDescricao'].map({1: '1 - Bom', 2: '2 - Regular', 3: '3 - Ruim'})
+df_distribuicao['ClassificacaoDescricao'] = df_distribuicao['ClassificacaoDescricao'].map({1: '1 - Bom', 2: '2 - Regular', 3: '3 - Ruim'})
 
 
 chart = alt.Chart(df_distribuicao).mark_bar().encode(
@@ -47,7 +47,7 @@ st.divider()
 
 st.markdown("""#### Análise da evolução das Classificações ao Longo dos Anos""")
 
-periododf['SiglaPeriodo'] = periododf['SiglaPeriodo'].astype(str).str.replace(',', '')
+#periododf['SiglaPeriodo'] = periododf['SiglaPeriodo'].astype(str).str.replace(',', '')
 
 alunos_classificacao_3_2021 = periododf[(periododf['ClassificacaoDescricao'] == 3) & (periododf['SiglaPeriodo'] == 2021)]
 
@@ -62,7 +62,7 @@ evolucao_classificacao = evolucao_alunos.groupby(['SiglaPeriodo', 'Classificacao
 
 # Resetando o índice para transformar os dados em formato longo
 evolucao_classificacao_long = evolucao_classificacao.reset_index().melt(id_vars=['SiglaPeriodo'], var_name='ClassificacaoDescricao', value_name='NumeroDeAlunos')
-st.write(alunos_classificacao_3_2021)
+st.write(periododf.info)
 
 # Criar o gráfico com Altair
 chart = alt.Chart(evolucao_classificacao_long).mark_line(point=True).encode(
