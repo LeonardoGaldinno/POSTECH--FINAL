@@ -86,7 +86,6 @@ class PrepareData:
         for col in columns:
             pd.to_numeric(df_final[col], errors='coerce',downcast="float")
 
-        print(df_final.info)
 
         #Criando um DF para analise de performance dos indices INDE, IDA, IEG, IPV em escolas publicas vs particulartes
         df_escolas_perf = df_final.groupby(['CategoriaEscola_Instituição de ensino'])[columns].median()
