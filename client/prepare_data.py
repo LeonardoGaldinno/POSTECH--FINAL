@@ -75,17 +75,16 @@ class PrepareData:
         df_final['Defasagem_categoria_23'] = df_final['Defasagem_23'].apply(self.utils.categorize_defasagem)
         df_final['Defasagem_categoria_24'] = df_final['Defasagem_24'].apply(self.utils.categorize_defasagem)
 
+        columns = ['INDE 22','IDA_22','IEG_22','IPV_22','INDE 2023','IDA_23','IEG_23','IPV_23','INDE 2024','IDA_24','IEG_24','IPV_24']
+
+        for col in columns:
+            df_final[col] = pd.to_numeric(df_final[col], errors='coerce',downcast="float")
+
         return df_final
     
     def df_escolas_perf_unpivoted(self):
 
         df_final = self.df_pede_merged()
-
-        columns = ['INDE 22','IDA_22','IEG_22','IPV_22','INDE 2023','IDA_23','IEG_23','IPV_23','INDE 2024','IDA_24','IEG_24','IPV_24']
-
-        for col in columns:
-            pd.to_numeric(df_final[col], errors='coerce',downcast="float")
-
 
         #Criando um DF para analise de performance dos indices INDE, IDA, IEG, IPV em escolas publicas vs particulartes
         df_escolas_perf = df_final.groupby(['CategoriaEscola_Instituição de ensino'])[columns].median()
