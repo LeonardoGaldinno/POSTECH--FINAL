@@ -51,7 +51,7 @@ st.markdown("""#### Análise da evolução das Classificações ao Longo dos Ano
 
 alunos_classificacao_3_2021 = periododf[(periododf['ClassificacaoDescricao'] == 3) & (periododf['SiglaPeriodo'] == 2021)]
 
-# Obter os IDs dos alunos
+# Obter os IDs dos aluno
 alunos_ids = alunos_classificacao_3_2021['IdAluno'].unique()
 
 # Filtrar os dados para esses alunos nos anos subsequentes
@@ -62,7 +62,7 @@ evolucao_classificacao = evolucao_alunos.groupby(['SiglaPeriodo', 'Classificacao
 
 # Resetando o índice para transformar os dados em formato longo
 evolucao_classificacao_long = evolucao_classificacao.reset_index().melt(id_vars=['SiglaPeriodo'], var_name='ClassificacaoDescricao', value_name='NumeroDeAlunos')
-st.write(periododf.info)
+st.write(periododf.info())
 
 # Criar o gráfico com Altair
 chart = alt.Chart(evolucao_classificacao_long).mark_line(point=True).encode(
