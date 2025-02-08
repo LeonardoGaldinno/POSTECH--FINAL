@@ -129,6 +129,7 @@ grafico = (
 
 # Exibir no Streamlit
 st.altair_chart(grafico, use_container_width=True)
+st.write(df_escolas_perf_unpivoted)
 
 
 ### --------------- MÉTRICAS POR ANO E ESCOLA --------------------- ###
