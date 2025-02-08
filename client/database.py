@@ -14,6 +14,7 @@ class BigQuery:
 
          # Carrega secrets do Streamlit
         project_id = st.secrets["project_id"]
+        print(project_id)
         private_key = st.secrets["private_key"].replace("\\n", "\n") 
         client_email = st.secrets["client_email"]
         
