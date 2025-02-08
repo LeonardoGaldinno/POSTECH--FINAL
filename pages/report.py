@@ -64,27 +64,36 @@ st.markdown("""#### Análise da evolução das Classificações ao Longo dos Ano
 # ax.grid()
 
 # st.pyplot(fig)
+# Filtrar alunos com classificação 3 em 2021
 alunos_classificacao_3_2021 = periododf[(periododf['ClassificacaoDescricao'] == 3) & (periododf['SiglaPeriodo'] == 2021)]
+
+# Obter os IDs dos alunos
 alunos_ids = alunos_classificacao_3_2021['IdAluno'].unique()
+
+# Filtrar os dados para esses alunos nos anos subsequentes
 evolucao_alunos = periododf[periododf['IdAluno'].isin(alunos_ids)]
-evolucao_classificacao = evolucao_alunos.groupby(['SiglaPeriodo', 'ClassificacaoDescricao']).size().unstack(fill_value=0).reset_index()
 
-# Converter para formato longo para Altair
-evolucao_classificacao_long = evolucao_classificacao.melt(id_vars='SiglaPeriodo', var_name='Classificacao', value_name='NumeroAlunos')
+# Agrupar os dados por ano e classificação
+evolucao_classificacao = evolucao_alunos.groupby(['SiglaPeriodo', 'ClassificacaoDescricao']).size().unstack(fill_value=0)
 
-# Criar gráfico com Altair
-chart = alt.Chart(evolucao_classificacao_long).mark_line(point=True).encode(
-    x=alt.X('SiglaPeriodo:O', title='Ano'),
-    y=alt.Y('NumeroAlunos:Q', title='Número de Alunos'),
-    color=alt.Color('Classificacao:N', title='Classificação'),
-    tooltip=['SiglaPeriodo', 'Classificacao', 'NumeroAlunos']
-).properties(
-    title='Evolução das Classificações ao Longo dos Anos',
-    width=600,
-    height=400
-).interactive()
 
-# Exibir gráfico no Streamlit
+
+df_melted = evolucao_classificacao.melt(id_vars=["SiglaPeriodo"], var_name="Classificacao", value_name="Numero de Alunos")
+
+# Criar o gráfico com Altair
+chart = (
+    alt.Chart(df_melted)
+    .mark_line(point=True)
+    .encode(
+        x="SiglaPeriodo:O",
+        y="Numero de Alunos:Q",
+        color="Classificacao:N",
+        tooltip=["SiglaPeriodo", "Classificacao", "Numero de Alunos"],
+    )
+    .properties(title="Evolução das Classificações ao Longo dos Anos", width=600, height=400)
+)
+
+# Mostrar no Streamlit
 st.altair_chart(chart, use_container_width=True)
 
 ### --------------- DF EVOLUÇÃO -----------------------------------###
