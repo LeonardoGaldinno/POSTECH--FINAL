@@ -220,8 +220,8 @@ for year in years:
         charts.append(chart)
 
 # Organizar os gráficos em um layout empilhado
-charts_1 = [:3]
-charts_3 = [3:]
+charts_1 = charts[:3]
+charts_3 = charts[3:]
 st.write("# Defasagem de alunos por categoria de escola e ano")
 st.altair_chart(alt.vconcat(*charts_1), use_container_width=True)
 st.altair_chart(alt.vconcat(*charts_2), use_container_width=True)
