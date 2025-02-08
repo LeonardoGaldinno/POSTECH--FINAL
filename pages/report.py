@@ -193,16 +193,17 @@ st.write("""Por fim, Verificamos também a diminuição da defasagem moderada e 
 
 # st.pyplot(fig)
 
+df = df_escolas_defas_unpivoted.copy()
 
 # Criar uma lista para armazenar os gráficos
 charts = []
 
-years = df_escolas_defas_unpivoted['Ano'].unique()
-school_types = df_escolas_defas_unpivoted['CategoriaEscola_Instituição de ensino'].unique()
+years = df['Ano'].unique()
+school_types = df['CategoriaEscola_Instituição de ensino'].unique()
 
 for year in years:
     for school_type in school_types:
-        year_school_data = df_escolas_defas_unpivoted[(df_escolas_defas_unpivoted['Ano'] == year) & (df_escolas_defas_unpivoted['CategoriaEscola_Instituição de ensino'] == school_type)]
+        year_school_data = df[(df['Ano'] == year) & (df['CategoriaEscola_Instituição de ensino'] == school_type)]
         defasagem_totals = year_school_data.groupby('Defasagem_categoria')['Value'].sum().reset_index()
         defasagem_totals["Percentage"] = (defasagem_totals["Value"] / defasagem_totals["Value"].sum()) * 100
         
@@ -219,10 +220,9 @@ for year in years:
         
         charts.append(chart)
 
-# Organizar os gráficos em duas fileiras de três gráficos
-row1 = alt.hconcat(*charts[:3])
-row2 = alt.hconcat(*charts[3:])
-layout = alt.vconcat(row1, row2)
+# Organizar os gráficos em uma grade de 2 linhas por 3 colunas
+rows = [alt.hconcat(*charts[i:i+3]) for i in range(0, len(charts), 3)]
+layout = alt.vconcat(*rows)
 
 st.write("# Defasagem de alunos por categoria de escola e ano")
 st.altair_chart(layout, use_container_width=True)
