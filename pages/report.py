@@ -17,72 +17,6 @@ st.write("""
 
 st.divider()
 
-### --------------- DF PERÍODO ------------------------------------###
-st.markdown("""#### Análise de distribuição da classificação dos alunos.""")
-
-df_distribuicao = periododf.copy()
-
-df_distribuicao['ClassificacaoDescricao'] = df_distribuicao['ClassificacaoDescricao'].map({1: '1 - Bom', 2: '2 - Regular', 3: '3 - Ruim'})
-
-
-chart = alt.Chart(df_distribuicao).mark_bar().encode(
-    x=alt.X('ClassificacaoDescricao:N', title='Classificação'),
-    y=alt.Y('count()', title='Número de Alunos'),
-    color=alt.Color('ClassificacaoDescricao:N', scale=alt.Scale(scheme='viridis'))
-).properties(
-    width=600,
-    height=400
-)
-
-st.altair_chart(chart, use_container_width=True)
-
-
-
-### --------------- DF PERÍODO ------------------------------------###
-
-
-st.divider()
-
-### --------------- DF EVOLUÇÃO -----------------------------------###
-
-st.markdown("""#### Análise da evolução das Classificações ao Longo dos Anos""")
-
-
-
-alunos_classificacao_3_2021 = periododf[(periododf['ClassificacaoDescricao'] == 3) & (periododf['SiglaPeriodo'] == 2021)]
-
-# Obter os IDs dos aluno
-alunos_ids = alunos_classificacao_3_2021['IdAluno'].unique()
-
-# Filtrar os dados para esses alunos nos anos subsequentes
-evolucao_alunos = periododf[periododf['IdAluno'].isin(alunos_ids)]
-
-# Agrupar os dados por ano e classificação
-evolucao_classificacao = evolucao_alunos.groupby(['SiglaPeriodo', 'ClassificacaoDescricao']).size().unstack(fill_value=0)
-
-# Resetando o índice para transformar os dados em formato longo
-evolucao_classificacao_long = evolucao_classificacao.reset_index().melt(id_vars=['SiglaPeriodo'], var_name='ClassificacaoDescricao', value_name='NumeroDeAlunos')
-
-
-# Criar o gráfico com Altair
-chart = alt.Chart(evolucao_classificacao_long).mark_line(point=True).encode(
-    x='SiglaPeriodo:O',
-    y='NumeroDeAlunos:Q',
-    color='ClassificacaoDescricao:N',
-    tooltip=['SiglaPeriodo', 'ClassificacaoDescricao', 'NumeroDeAlunos']
-).properties(
-    title='Evolução das Classificações ao Longo dos Anos',
-    width=600,
-    height=400
-)
-
-# Exibir o gráfico no Streamlit
-st.altair_chart(chart, use_container_width=True)
-
-
-### --------------- DF EVOLUÇÃO -----------------------------------###
-
-st.divider()
 
 ### --------------- MÉTRICAS POR ANO E ESCOLA--------------------- ###
 
@@ -293,6 +227,91 @@ final_chart = chart + text
 st.altair_chart(final_chart, use_container_width=True)
 
 ### --------------- MÉTRICA PEDRA POR ANO E ESCOLA --------------------- ###
+
+st.divider()
+
+
+### --------------- DF PERÍODO ------------------------------------###
+st.markdown("""#### Análise de distribuição da classificação dos alunos.""")
+
+st.write("""O gráfico apresentado ilustra a distribuição das classificações dos alunos em três categorias distintas: "1 - Bom", "2 - Regular" e "3 - Ruim". Essa visualização permite uma análise que facilita a identificação de áreas que podem necessitar de atenção e intervenção.""")
+
+st.write("""Na categoria "1 - Bom", observamos que um número considerável de alunos se destaca positivamente. Embora essa barra represente uma quantidade significativa, ela não é a mais alta entre as três classificações. Isso indica que, embora haja alunos que estão se saindo bem, ainda existe uma maior proporção de alunos em outras categorias, sugerindo que o desempenho acadêmico pode ser aprimorado em geral.
+""")
+
+st.write("""A classificação "2 - Regular" é a que apresenta o maior número de alunos, superando as demais categorias. Essa predominância sugere que a maioria dos alunos está em um nível de desempenho considerado regular. Essa situação pode ser interpretada como um sinal de que muitos alunos estão se saindo adequadamente, mas também aponta para a necessidade de estratégias de melhoria, uma vez que um desempenho regular pode não ser suficiente para garantir o sucesso acadêmico a longo prazo.""")
+
+st.write("""Por fim, a categoria "3 - Ruim" apresenta o menor número de alunos, o que é um aspecto positivo, pois indica que a maioria dos alunos não está em um nível de desempenho baixo. No entanto, essa faixa ainda precisa de atenção, pois os alunos classificados como "ruim" podem necessitar de suporte adicional para melhorar seu desempenho. Em suma, o gráfico sugere que, enquanto a maioria dos alunos está em um nível regular, há uma quantidade significativa que se destaca como bons, e a presença de alunos com desempenho ruim deve ser abordada para garantir que todos tenham a oportunidade de progredir academicamente.""")
+
+df_distribuicao = periododf.copy()
+
+df_distribuicao['ClassificacaoDescricao'] = df_distribuicao['ClassificacaoDescricao'].map({1: '1 - Bom', 2: '2 - Regular', 3: '3 - Ruim'})
+
+
+chart = alt.Chart(df_distribuicao).mark_bar().encode(
+    x=alt.X('ClassificacaoDescricao:N', title='Classificação'),
+    y=alt.Y('count()', title='Número de Alunos'),
+    color=alt.Color('ClassificacaoDescricao:N', scale=alt.Scale(scheme='viridis'))
+).properties(
+    width=600,
+    height=400
+)
+
+st.altair_chart(chart, use_container_width=True)
+
+
+
+### --------------- DF PERÍODO ------------------------------------###
+
+
+st.divider()
+
+### --------------- DF EVOLUÇÃO -----------------------------------###
+
+st.markdown("""#### Análise da evolução das Classificações ao Longo dos Anos""")
+
+st.write("""O gráfico ilustra a evolução do número de alunos em três classificações diferentes ao longo dos anos de 2021 a 2024. Essa análise permite ter clareza das tendências de desempenho acadêmico dos alunos ao longo do tempo, facilitando a identificação de padrões e mudanças significativas nas classificações. A visualização dos dados é fundamental para entender como os alunos estão se saindo em diferentes categorias e para identificar áreas que podem necessitar de intervenções.""")
+
+st.write("""A Classificação 1, representada pela linha azul, começou com aproximadamente 4.000 alunos em 2021. Ao longo de 2022, houve um aumento gradual no número de alunos, mas a partir de 2023, a classificação apresentou uma leve queda, estabilizando-se em torno de 4.000 alunos. Essa estabilidade sugere que, embora haja um número considerável de alunos nessa categoria, não houve um crescimento significativo nos anos seguintes, o que pode indicar uma saturação ou um equilíbrio no desempenho. Essa falta de crescimento pode levar os alunos a não perceberem melhorias em seu desempenho.""")
+
+st.write("""A Classificação 2, indicada pela linha laranja, teve um início relativamente baixo em 2021, mas experimentou um crescimento notável até 2022, atingindo mais de 10.000 alunos. No entanto, a partir de 2022, essa classificação sofreu uma queda acentuada, continuando a diminuir até 2024. Essa tendência de redução pode sugerir uma mudança nas preferências dos alunos, uma possível diminuição na qualidade percebida do ensino ou alterações na oferta de cursos que não atenderam às expectativas dos alunos. Essa situação pode gerar insegurança nos alunos, que podem não ter uma noção clara de seu desempenho.""")
+
+st.write("""A Classificação 3, representada pela linha verde, começou com um número de alunos semelhante ao da Classificação 1, em torno de 2.000, e apresentou um leve aumento em 2022. Contudo, a partir de então, a classificação mostrou uma leve queda, mantendo-se entre 2.000 e 3.000 alunos nos anos seguintes. Essa dinâmica sugere que, enquanto as Classificações 1 e 3 mantêm uma estabilidade relativa, a Classificação 2 apresenta uma mudança drástica que merece atenção. A análise das causas dessas variações pode ser crucial para entender melhor o desempenho acadêmico e as necessidades dos alunos. Logo, a falta de clareza sobre o desempenho pode levar os alunos a não perceberem se estão indo bem, dificultando sua capacidade de identificar áreas de melhoria e progresso.""")
+
+
+
+alunos_classificacao_3_2021 = periododf[(periododf['ClassificacaoDescricao'] == 3) & (periododf['SiglaPeriodo'] == 2021)]
+
+# Obter os IDs dos aluno
+alunos_ids = alunos_classificacao_3_2021['IdAluno'].unique()
+
+# Filtrar os dados para esses alunos nos anos subsequentes
+evolucao_alunos = periododf[periododf['IdAluno'].isin(alunos_ids)]
+
+# Agrupar os dados por ano e classificação
+evolucao_classificacao = evolucao_alunos.groupby(['SiglaPeriodo', 'ClassificacaoDescricao']).size().unstack(fill_value=0)
+
+# Resetando o índice para transformar os dados em formato longo
+evolucao_classificacao_long = evolucao_classificacao.reset_index().melt(id_vars=['SiglaPeriodo'], var_name='ClassificacaoDescricao', value_name='NumeroDeAlunos')
+
+
+# Criar o gráfico com Altair
+chart = alt.Chart(evolucao_classificacao_long).mark_line(point=True).encode(
+    x='SiglaPeriodo:O',
+    y='NumeroDeAlunos:Q',
+    color='ClassificacaoDescricao:N',
+    tooltip=['SiglaPeriodo', 'ClassificacaoDescricao', 'NumeroDeAlunos']
+).properties(
+    title='Evolução das Classificações ao Longo dos Anos',
+    width=600,
+    height=400
+)
+
+# Exibir o gráfico no Streamlit
+st.altair_chart(chart, use_container_width=True)
+
+
+### --------------- DF EVOLUÇÃO -----------------------------------###
 
 st.divider()
 
