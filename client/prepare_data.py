@@ -35,7 +35,9 @@ class PrepareData:
 
         join_key = 'RA'
         columns_to_include = ['INDE 2023', 'Pedra 2023', 'IDA','IPV','IEG','Defasagem','Fase','Fase Ideal']
+        print(df_pede_passos_tab2023.columns)
         df_final = pd.merge(df_pede_passos_tab2022, df_pede_passos_tab2023[[join_key] + columns_to_include], on=join_key, how='left')
+
 
         #Renomeando indices
         df_final = df_final.rename(columns={
