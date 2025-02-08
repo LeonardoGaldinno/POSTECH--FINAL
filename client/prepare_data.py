@@ -135,7 +135,7 @@ class PrepareData:
         df_escolas_pedra_unpivoted = df_escolas_pedra.melt(id_vars='CategoriaEscola_Instituição de ensino',
                                                         var_name='Metrica',
                                                         value_name='Valor')
-        df_escolas_pedra_unpivoted['Ano'] = df_escolas_pedra_unpivoted['Metrica'].apply(self.utils.get_year)
+        df_escolas_pedra_unpivoted['Ano'] = df_escolas_pedra_unpivoted['Metrica'].apply(self.utils.get_year2)
         df_escolas_pedra_unpivoted['Metrica'] = df_escolas_pedra_unpivoted['Metrica'].apply(self.utils.clean_metric)
 
         return df_escolas_pedra_unpivoted

@@ -15,12 +15,21 @@ class Utils:
             return 'Severa'
 
 
-    def get_year(self, metrica):
+    def get_year2(self, metrica):
         if '20' in metrica:
             return 2020
         elif '21' in metrica:
             return 2021
         elif '22' in metrica:
+            return 2022
+        elif '23' in metrica:
+            return 2023
+        elif '24' in metrica:
+            return 2024
+        return None
+
+    def get_year(metrica):
+        if '22' in metrica:
             return 2022
         elif '23' in metrica:
             return 2023
