@@ -169,29 +169,58 @@ st.write("""Enquanto as escolas particulares conseguiram erradicar a defasagem s
 st.write("""Por fim, Verificamos também a diminuição da defasagem moderada e aumento dos Alunos em Fase tanto nas escolas particulares quanto nas públicas, indicando um bom progresso.
 """)
 
-sns.set_theme(style="whitegrid")
+# sns.set_theme(style="whitegrid")
 
-fig, axes = plt.subplots(3, 2, figsize=(10, 8))
+# fig, axes = plt.subplots(3, 2, figsize=(10, 8))
+
+# years = df_escolas_defas_unpivoted['Ano'].unique()
+# school_types = df_escolas_defas_unpivoted['CategoriaEscola_Instituição de ensino'].unique()
+
+# for i, year in enumerate(years):
+#     for j, school_type in enumerate(school_types):
+#         year_school_data = df_escolas_defas_unpivoted[(df_escolas_defas_unpivoted['Ano'] == year) &
+#                                                       (df_escolas_defas_unpivoted['CategoriaEscola_Instituição de ensino'] == school_type)]
+#         defasagem_totals = year_school_data.groupby('Defasagem_categoria')['Value'].sum()
+
+#         ax = axes[i, j]
+#         defasagem_totals.plot.pie(autopct='%1.1f%%', startangle=90, colors=sns.color_palette("Set2", len(defasagem_totals)), ax=ax)
+
+#         ax.set_title(f'{school_type} - {year}')
+#         ax.set_ylabel('')
+
+# plt.suptitle('Defasagem de alunos por categoria de escola e ano', fontsize=16)
+# plt.tight_layout()
+
+# st.pyplot(fig)
+
+
+# Criar uma lista para armazenar os gráficos
+charts = []
 
 years = df_escolas_defas_unpivoted['Ano'].unique()
 school_types = df_escolas_defas_unpivoted['CategoriaEscola_Instituição de ensino'].unique()
 
-for i, year in enumerate(years):
-    for j, school_type in enumerate(school_types):
-        year_school_data = df_escolas_defas_unpivoted[(df_escolas_defas_unpivoted['Ano'] == year) &
-                                                      (df_escolas_defas_unpivoted['CategoriaEscola_Instituição de ensino'] == school_type)]
-        defasagem_totals = year_school_data.groupby('Defasagem_categoria')['Value'].sum()
+for year in years:
+    for school_type in school_types:
+        year_school_data = df_escolas_defas_unpivoted[(df_escolas_defas_unpivoted['Ano'] == year) & (df_escolas_defas_unpivoted['CategoriaEscola_Instituição de ensino'] == school_type)]
+        defasagem_totals = year_school_data.groupby('Defasagem_categoria')['Value'].sum().reset_index()
+        
+        chart = (
+            alt.Chart(defasagem_totals)
+            .mark_arc()
+            .encode(
+                theta=alt.Theta(field="Value", type="quantitative"),
+                color=alt.Color(field="Defasagem_categoria", type="nominal", legend=alt.Legend(title="Defasagem Categoria")),
+                tooltip=["Defasagem_categoria", "Value"]
+            )
+            .properties(title=f"{school_type} - {year}", width=300, height=300)
+        )
+        
+        charts.append(chart)
 
-        ax = axes[i, j]
-        defasagem_totals.plot.pie(autopct='%1.1f%%', startangle=90, colors=sns.color_palette("Set2", len(defasagem_totals)), ax=ax)
-
-        ax.set_title(f'{school_type} - {year}')
-        ax.set_ylabel('')
-
-plt.suptitle('Defasagem de alunos por categoria de escola e ano', fontsize=16)
-plt.tight_layout()
-
-st.pyplot(fig)
+# Organizar os gráficos em um layout
+st.write("# Defasagem de alunos por categoria de escola e ano")
+st.altair_chart(alt.hconcat(*charts), use_container_width=True)
 
 ### --------------- DEFASAGEM DE ALUNOS POR ESCOLA E ANO --------------------- ###
 
