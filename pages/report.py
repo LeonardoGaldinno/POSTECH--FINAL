@@ -195,6 +195,7 @@ st.write("""Por fim, Verificamos também a diminuição da defasagem moderada e 
 
 
 # Criar uma lista para armazenar os gráficos
+# Criar uma lista para armazenar os gráficos
 charts = []
 
 years = df_escolas_defas_unpivoted['Ano'].unique()
@@ -213,14 +214,18 @@ for year in years:
                 color=alt.Color(field="Defasagem_categoria", type="nominal", legend=alt.Legend(title="Defasagem Categoria")),
                 tooltip=["Defasagem_categoria", "Value"]
             )
-            .properties(title=f"{school_type} - {year}", width=300, height=300)
+            .properties(title=f"{school_type} - {year}", width=200, height=200)
         )
         
         charts.append(chart)
 
-# Organizar os gráficos em um layout
+# Organizar os gráficos em 2 fileiras com 3 colunas
+rows = [alt.hconcat(*charts[i:i+3]) for i in range(0, len(charts), 3)]
+layout = alt.vconcat(*rows)
+
 st.write("# Defasagem de alunos por categoria de escola e ano")
-st.altair_chart(alt.hconcat(*charts), use_container_width=True)
+st.altair_chart(layout, use_container_width=True)
+
 
 ### --------------- DEFASAGEM DE ALUNOS POR ESCOLA E ANO --------------------- ###
 
