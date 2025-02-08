@@ -84,7 +84,7 @@ class PrepareData:
         columns = ['INDE 22','IDA_22','IEG_22','IPV_22','INDE 2023','IDA_23','IEG_23','IPV_23','INDE 2024','IDA_24','IEG_24','IPV_24']
 
         for col in columns:
-            pd.to_numeric(df_final[col], errors='coerce')
+            pd.to_numeric(df_final[col], errors='coerce',downcast="float")
 
         print(df_final.info)
 
