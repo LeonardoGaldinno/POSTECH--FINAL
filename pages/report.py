@@ -66,6 +66,8 @@ st.markdown("""#### Análise da evolução das Classificações ao Longo dos Ano
 # st.pyplot(fig)
 # Filtrar alunos com classificação 3 em 2021
 # Filtrar alunos com classificação 3 em 2021
+
+# Filtrar alunos com classificação 3 em 2021
 alunos_classificacao_3_2021 = periododf[(periododf['ClassificacaoDescricao'] == 3) & (periododf['SiglaPeriodo'] == 2021)]
 
 # Obter os IDs dos alunos
@@ -92,8 +94,8 @@ chart = alt.Chart(evolucao_classificacao_long).mark_line(point=True).encode(
     height=400
 )
 
-# Exibir o gráfico no Jupyter Notebook
-st.altair_chart(chart)
+# Exibir o gráfico no Streamlit
+st.altair_chart(chart, use_container_width=True)
 
 ### --------------- DF EVOLUÇÃO -----------------------------------###
 
