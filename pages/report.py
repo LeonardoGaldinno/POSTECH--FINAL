@@ -222,7 +222,7 @@ for year in years:
 # Organizar os gráficos em um layout empilhado
 charts_1 = charts[:3]
 charts_2 = charts[3:]
-st.write("# Defasagem de alunos por categoria de escola e ano")
+
 st.altair_chart(alt.hconcat(*charts_1), use_container_width=True)
 st.altair_chart(alt.hconcat(*charts_2), use_container_width=True)
 
@@ -275,8 +275,7 @@ chart = alt.Chart(df_escolas_pedra_unpivoted).mark_bar().encode(
     tooltip=['Ano', 'CategoriaEscola_Instituição de ensino', 'Valor']
 ).properties(
     width=200,
-    height=300,
-    title='Percentil 80 da Métrica Pedra por Ano e Categoria de Escola'
+    height=300
 )
 
 # Adicionar os valores no topo das barras
