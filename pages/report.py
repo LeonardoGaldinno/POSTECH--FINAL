@@ -2,7 +2,7 @@ import streamlit as st
 from client.database import BigQuery
 from client.prepare_data import PrepareData
 import altair as alt 
-import matplotlib as plt
+import matplotlib.pyplot as plt
 
 
 handler = PrepareData()
