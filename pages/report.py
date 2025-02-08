@@ -79,6 +79,7 @@ evolucao_classificacao = evolucao_alunos.groupby(['SiglaPeriodo', 'Classificacao
 evolucao_classificacao.index = evolucao_classificacao.index.astype(str)  # Converter índice para string
 evolucao_classificacao = evolucao_classificacao.reset_index()  # Transformar índice em coluna
 df_melted = evolucao_classificacao.melt(id_vars=["SiglaPeriodo"], var_name="Classificacao", value_name="Numero de Alunos")
+st.write(df_melted)
 
 
 # Criar o gráfico com Altair
