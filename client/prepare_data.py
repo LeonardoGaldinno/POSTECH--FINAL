@@ -87,7 +87,7 @@ class PrepareData:
         df_final = self.df_pede_merged()
 
         #Criando um DF para analise de performance dos indices INDE, IDA, IEG, IPV em escolas publicas vs particulartes
-        df_escolas_perf = df_final.groupby(['CategoriaEscola_Instituição de ensino'])['INDE 22','IDA_22','IEG_22','IPV_22','INDE 2023','IDA_23','IEG_23','IPV_23','INDE 2024','IDA_24','IEG_24','IPV_24'].median()
+        df_escolas_perf = df_final.groupby(['CategoriaEscola_Instituição de ensino'])[['INDE 22','IDA_22','IEG_22','IPV_22','INDE 2023','IDA_23','IEG_23','IPV_23','INDE 2024','IDA_24','IEG_24','IPV_24']].median()
         df_escolas_perf = df_escolas_perf.reset_index()
         df_escolas_perf_unpivoted = df_escolas_perf.melt(id_vars='CategoriaEscola_Instituição de ensino',
                                                         var_name='Metrica',
