@@ -76,27 +76,23 @@ evolucao_alunos = periododf[periododf['IdAluno'].isin(alunos_ids)]
 # Agrupar os dados por ano e classificação
 evolucao_classificacao = evolucao_alunos.groupby(['SiglaPeriodo', 'ClassificacaoDescricao']).size().unstack(fill_value=0)
 
-evolucao_classificacao.index = evolucao_classificacao.index.astype(str)  # Converter índice para string
-evolucao_classificacao = evolucao_classificacao.reset_index()  # Transformar índice em coluna
-df_melted = evolucao_classificacao.melt(id_vars=["SiglaPeriodo"], var_name="Classificacao", value_name="Numero de Alunos")
-st.write(df_melted)
-
+# Resetando o índice para transformar os dados em formato longo
+evolucao_classificacao_long = evolucao_classificacao.reset_index().melt(id_vars=['SiglaPeriodo'], var_name='ClassificacaoDescricao', value_name='NumeroDeAlunos')
 
 # Criar o gráfico com Altair
-chart = (
-    alt.Chart(df_melted)
-    .mark_line(point=True)
-    .encode(
-        x=alt.X("SiglaPeriodo:O", title="Ano"),
-        y=alt.Y("Numero de Alunos:Q", title="Número de Alunos"),
-        color="Classificacao:N",
-        tooltip=["SiglaPeriodo", "Classificacao", "Numero de Alunos"],
-    )
-    .properties(title="Evolução das Classificações ao Longo dos Anos", width=600, height=400)
+chart = alt.Chart(evolucao_classificacao_long).mark_line(point=True).encode(
+    x='SiglaPeriodo:O',
+    y='NumeroDeAlunos:Q',
+    color='ClassificacaoDescricao:N',
+    tooltip=['SiglaPeriodo', 'ClassificacaoDescricao', 'NumeroDeAlunos']
+).properties(
+    title='Evolução das Classificações ao Longo dos Anos',
+    width=600,
+    height=400
 )
 
-# Mostrar no Streamlit
-st.altair_chart(chart, use_container_width=True)
+# Exibir o gráfico no Streamlit
+st.altair_chart(chart)
 
 ### --------------- DF EVOLUÇÃO -----------------------------------###
 
