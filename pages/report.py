@@ -44,25 +44,47 @@ st.divider()
 
 st.markdown("""#### Análise da evolução das Classificações ao Longo dos Anos""")
 
+# alunos_classificacao_3_2021 = periododf[(periododf['ClassificacaoDescricao'] == 3) & (periododf['SiglaPeriodo'] == 2021)]
+# alunos_ids = alunos_classificacao_3_2021['IdAluno'].unique()
+# evolucao_alunos = periododf[periododf['IdAluno'].isin(alunos_ids)]
+# evolucao_classificacao = evolucao_alunos.groupby(['SiglaPeriodo', 'ClassificacaoDescricao']).size().unstack(fill_value=0)
+
+
+# fig, ax = plt.subplots(figsize=(10, 6))
+# for classificacao in evolucao_classificacao.columns:
+#     ax.plot(evolucao_classificacao.index, evolucao_classificacao[classificacao], marker='o', label=f'Classificação {classificacao}')
+
+
+# ax.set_title('Evolução das Classificações ao Longo dos Anos')
+# ax.set_xlabel('Ano')
+# ax.set_ylabel('Número de Alunos')
+# ax.set_xticks(evolucao_classificacao.index)
+# ax.legend(title='Classificação')
+# ax.grid()
+
+# st.pyplot(fig)
 alunos_classificacao_3_2021 = periododf[(periododf['ClassificacaoDescricao'] == 3) & (periododf['SiglaPeriodo'] == 2021)]
 alunos_ids = alunos_classificacao_3_2021['IdAluno'].unique()
 evolucao_alunos = periododf[periododf['IdAluno'].isin(alunos_ids)]
-evolucao_classificacao = evolucao_alunos.groupby(['SiglaPeriodo', 'ClassificacaoDescricao']).size().unstack(fill_value=0)
+evolucao_classificacao = evolucao_alunos.groupby(['SiglaPeriodo', 'ClassificacaoDescricao']).size().unstack(fill_value=0).reset_index()
 
+# Converter para formato longo para Altair
+evolucao_classificacao_long = evolucao_classificacao.melt(id_vars='SiglaPeriodo', var_name='Classificacao', value_name='NumeroAlunos')
 
-fig, ax = plt.subplots(figsize=(10, 6))
-for classificacao in evolucao_classificacao.columns:
-    ax.plot(evolucao_classificacao.index, evolucao_classificacao[classificacao], marker='o', label=f'Classificação {classificacao}')
+# Criar gráfico com Altair
+chart = alt.Chart(evolucao_classificacao_long).mark_line(point=True).encode(
+    x=alt.X('SiglaPeriodo:O', title='Ano'),
+    y=alt.Y('NumeroAlunos:Q', title='Número de Alunos'),
+    color=alt.Color('Classificacao:N', title='Classificação'),
+    tooltip=['SiglaPeriodo', 'Classificacao', 'NumeroAlunos']
+).properties(
+    title='Evolução das Classificações ao Longo dos Anos',
+    width=600,
+    height=400
+).interactive()
 
-
-ax.set_title('Evolução das Classificações ao Longo dos Anos')
-ax.set_xlabel('Ano')
-ax.set_ylabel('Número de Alunos')
-ax.set_xticks(evolucao_classificacao.index)
-ax.legend(title='Classificação')
-ax.grid()
-
-st.pyplot(fig)
+# Exibir gráfico no Streamlit
+st.altair_chart(chart, use_container_width=True)
 
 ### --------------- DF EVOLUÇÃO -----------------------------------###
 
