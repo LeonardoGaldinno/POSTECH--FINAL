@@ -20,10 +20,10 @@ st.divider()
 ### --------------- DF PERÍODO ------------------------------------###
 st.markdown("""#### Análise de distribuição da classificação dos alunos.""")
 
-periododf['ClassificacaoDescricao'] = periododf['ClassificacaoDescricao'].map({1: '1 - Bom', 2: '2 - Regular', 3: '3 - Ruim'})
+df_distribuicao['ClassificacaoDescricao'] = periododf['ClassificacaoDescricao'].map({1: '1 - Bom', 2: '2 - Regular', 3: '3 - Ruim'})
 
 
-chart = alt.Chart(periododf).mark_bar().encode(
+chart = alt.Chart(df_distribuicao).mark_bar().encode(
     x=alt.X('ClassificacaoDescricao:N', title='Classificação'),
     y=alt.Y('count()', title='Número de Alunos'),
     color=alt.Color('ClassificacaoDescricao:N', scale=alt.Scale(scheme='viridis'))
@@ -45,30 +45,6 @@ st.divider()
 
 st.markdown("""#### Análise da evolução das Classificações ao Longo dos Anos""")
 
-# alunos_classificacao_3_2021 = periododf[(periododf['ClassificacaoDescricao'] == 3) & (periododf['SiglaPeriodo'] == 2021)]
-# alunos_ids = alunos_classificacao_3_2021['IdAluno'].unique()
-# evolucao_alunos = periododf[periododf['IdAluno'].isin(alunos_ids)]
-# evolucao_classificacao = evolucao_alunos.groupby(['SiglaPeriodo', 'ClassificacaoDescricao']).size().unstack(fill_value=0)
-
-
-# fig, ax = plt.subplots(figsize=(10, 6))
-# for classificacao in evolucao_classificacao.columns:
-#     ax.plot(evolucao_classificacao.index, evolucao_classificacao[classificacao], marker='o', label=f'Classificação {classificacao}')
-
-
-# ax.set_title('Evolução das Classificações ao Longo dos Anos')
-# ax.set_xlabel('Ano')
-# ax.set_ylabel('Número de Alunos')
-# ax.set_xticks(evolucao_classificacao.index)
-# ax.legend(title='Classificação')
-# ax.grid()
-
-# st.pyplot(fig)
-# Filtrar alunos com classificação 3 em 2021
-# Filtrar alunos com classificação 3 em 2021
-
-# Filtrar alunos com classificação 3 em 2021
-# Remover qualquer vírgula e garantir que seja um valor numérico ou string
 periododf['SiglaPeriodo'] = periododf['SiglaPeriodo'].astype(str).str.replace(',', '')
 
 alunos_classificacao_3_2021 = periododf[(periododf['ClassificacaoDescricao'] == 3) & (periododf['SiglaPeriodo'] == 2021)]
@@ -99,8 +75,8 @@ chart = alt.Chart(evolucao_classificacao_long).mark_line(point=True).encode(
 )
 
 # Exibir o gráfico no Streamlit
-# st.altair_chart(chart, use_container_width=True)
-st.write(chart)
+st.altair_chart(chart, use_container_width=True)
+
 
 ### --------------- DF EVOLUÇÃO -----------------------------------###
 
@@ -225,9 +201,6 @@ st.pyplot(fig)
 ### --------------- MÉTRICA PEDRA POR ANO E ESCOLA --------------------- ###
 
 st.divider()
-
-
-
 
 
 
