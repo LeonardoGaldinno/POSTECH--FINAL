@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from client.prepare_data import PrepareData
+import altair as alt
 
 handler = PrepareData()
 
@@ -18,7 +19,12 @@ col1, col2 = st.columns(2)
 with col1:
     
     evolucao_classificacao_long = handler.evolucao_classificacao_long()
-    st.write(evolucao_classificacao_long)
+
+    evolucao_classificacao_long = evolucao_classificacao_long[
+        (evolucao_classificacao_long["SiglaPeriodo"] >= year_range[0]) &
+        (evolucao_classificacao_long["SiglaPeriodo"] <= year_range[1])
+    ]
+
     chart = alt.Chart(evolucao_classificacao_long).mark_line(point=True).encode(
         x='SiglaPeriodo:O',
         y='NumeroDeAlunos:Q',
