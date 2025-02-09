@@ -105,7 +105,7 @@ chart = (
         color=alt.Color(field="Defasagem_categoria", type="nominal", legend=alt.Legend(title="Defasagem Categoria")),
         tooltip=["Defasagem_categoria", "Value", alt.Tooltip("Percentage:Q", format=".1f", title="%")]
     )
-    .properties(title="Defasagem de alunos por categoria de escola e ano", width=300, height=300)
+    .properties(title=f"Defasagem de alunos no anos {year_range} e {selected_schools}", width=300, height=300)
 )
         
 
