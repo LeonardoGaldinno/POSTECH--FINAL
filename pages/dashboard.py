@@ -29,8 +29,9 @@ evolucao_classificacao_long = evolucao_classificacao_long[
     ]
 
 evolucao_classificacao_long = evolucao_classificacao_long[
-        (evolucao_classificacao_long["ClassificacaoDescricao"] in selected_classification) 
-    ]
+    evolucao_classificacao_long["ClassificacaoDescricao"].isin(selected_classification)
+]
+
 
 chart = alt.Chart(evolucao_classificacao_long).mark_bar(point=True).encode(
         x='SiglaPeriodo:O',
@@ -55,6 +56,11 @@ df_escolas_pedra_unpivoted = df_escolas_pedra_unpivoted[
         (df_escolas_pedra_unpivoted["Ano"] >= year_range[0]) &
         (df_escolas_pedra_unpivoted["Ano"] <= year_range[1])
     ]
+
+df_escolas_pedra_unpivoted = df_escolas_pedra_unpivoted[
+    df_escolas_pedra_unpivoted["CategoriaEscola_Instituição"].isin(selected_schools)
+]
+
 
 chart = alt.Chart(df_escolas_pedra_unpivoted).mark_bar().encode(
     x='Ano:N',
