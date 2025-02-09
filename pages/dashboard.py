@@ -7,21 +7,21 @@ handler = PrepareData()
 
 st.set_page_config(layout="wide")
 
-col_dash, col_filters = st.columns([4, 2])
 
-with col_filters:
-    st.subheader("Filtros Interativos")
-    year_range = st.slider("Selecione o período:", 2021, 2024,(2021,2022))
+st.subheader("Filtros Interativos")
+year_range = st.slider("Selecione o período:", 2021, 2024,(2021,2022))
 
-    genres = ["Action", "Adventure", "Biography", "Comedy", "Drama", "Horror"]
-    selected_genres = st.multiselect("Selecione os gêneros:", genres, default=["Action", "Comedy"])
+genres = ["Action", "Adventure", "Biography", "Comedy", "Drama", "Horror"]
+selected_genres = st.multiselect("Selecione os gêneros:", genres, default=["Action", "Comedy"])
 
 
 
 
+col1, col2 = st.columns(2)
 
-with col_dash:
-# ------------------ DF EVOLUÇÃO ----------------------------------#
+with col1:
+
+    # ------------------ DF EVOLUÇÃO ----------------------------------#
         
     evolucao_classificacao_long = handler.evolucao_classificacao_long()
 
@@ -44,6 +44,8 @@ with col_dash:
 
     st.altair_chart(chart, use_container_width=True)
 
+with col2:
+
     # ------------------ DF EVOLUÇÃO ----------------------------------#
 
     df_escolas_pedra_unpivoted = handler.df_escolas_pedra_unpivoted()
@@ -62,7 +64,7 @@ with col_dash:
     ).properties(
         width=200,
         height=300
-    )
+        )
 
     text = alt.Chart(df_escolas_pedra_unpivoted).mark_text(dy=-10, color='black').encode(
         x='Ano:N',
