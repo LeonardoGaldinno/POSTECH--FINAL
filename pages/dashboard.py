@@ -7,7 +7,7 @@ handler = PrepareData()
 
 
 st.subheader("Filtros Interativos")
-year_range = st.slider("Selecione o período:", 2019, 2024,(2020,2022))
+year_range = st.slider("Selecione o período:", 2021, 2024,(2021,2022))
 
 genres = ["Action", "Adventure", "Biography", "Comedy", "Drama", "Horror"]
 selected_genres = st.multiselect("Selecione os gêneros:", genres, default=["Action", "Comedy"])
