@@ -12,7 +12,7 @@ class PrepareData:
         self.utils = Utils()
 
     def periododf(self):
-        periododf = client.load_table('tbDados')
+        periododf = self.client.load_table('tbDados')
         
         return periododf
 
