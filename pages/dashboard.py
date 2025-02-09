@@ -7,7 +7,7 @@ handler = PrepareData()
 
 st.set_page_config(layout="wide")
 
-col_dash, col_filters = st.columns([5, 1])
+col_dash, col_filters = st.columns([4, 2])
 
 with col_filters:
     st.subheader("Filtros Interativos")
