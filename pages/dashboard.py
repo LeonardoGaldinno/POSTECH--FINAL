@@ -5,6 +5,8 @@ import altair as alt
 
 handler = PrepareData()
 
+Function signature[source]
+st.set_page_config(layout="centered")
 
 st.subheader("Filtros Interativos")
 year_range = st.slider("Selecione o período:", 2021, 2024,(2021,2022))
