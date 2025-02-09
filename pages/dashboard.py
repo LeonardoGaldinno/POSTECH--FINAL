@@ -69,7 +69,8 @@ chart = alt.Chart(df_escolas_pedra_unpivoted).mark_bar().encode(
     tooltip=['Ano', 'CategoriaEscola_Instituição de ensino', 'Valor']
 ).properties(
     width=200,
-    height=300
+    height=300,
+    title= 'Percentil 80 da Métrica Pedra por Ano e Categoria de Escola'
     )
 
 text = alt.Chart(df_escolas_pedra_unpivoted).mark_text(dy=-10, color='black').encode(
