@@ -5,6 +5,8 @@ import altair as alt
 
 handler = PrepareData()
 
+st.set_page_config(layout="wide")
+
 col_dash, col_filters = st.columns([5, 1])
 
 with col_filters:
