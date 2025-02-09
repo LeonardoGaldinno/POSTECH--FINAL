@@ -53,7 +53,7 @@ df_escolas_pedra_unpivoted = handler.df_escolas_pedra_unpivoted()
 
 
 df_escolas_pedra_unpivoted = df_escolas_pedra_unpivoted[
-        (df_escolas_pedra_unpivoted["Ano"] >= c[0]) &
+        (df_escolas_pedra_unpivoted["Ano"] >= year_range[0]) &
         (df_escolas_pedra_unpivoted["Ano"] <= year_range[1])
     ]
 
