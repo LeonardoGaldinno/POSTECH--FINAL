@@ -11,9 +11,11 @@ st.set_page_config(layout="centered")
 st.subheader("Filtros Interativos")
 year_range = st.slider("Selecione o período:", 2021, 2024,(2021,2022))
 
-genres = ["Action", "Adventure", "Biography", "Comedy", "Drama", "Horror"]
-selected_genres = st.multiselect("Selecione os gêneros:", genres, default=["Action", "Comedy"])
+schools = ["Escolas Públicas", "Escolas Particulares"]
+selected_schools = st.multiselect("Selecione o Instituição de Ensino:", schools, default=["Escolas Públicas", "Escolas Particulares"])
 
+classification = [1, 2, 3]
+selected_classification = st.multiselect("Selecione a classificação do aluno:", classification, default=[1,2,3])
 
 
 
@@ -24,6 +26,10 @@ evolucao_classificacao_long = handler.evolucao_classificacao_long()
 evolucao_classificacao_long = evolucao_classificacao_long[
         (evolucao_classificacao_long["SiglaPeriodo"] >= year_range[0]) &
         (evolucao_classificacao_long["SiglaPeriodo"] <= year_range[1])
+    ]
+
+evolucao_classificacao_long = evolucao_classificacao_long[
+        (evolucao_classificacao_long["ClassificacaoDescricao"] in selected_classification) 
     ]
 
 chart = alt.Chart(evolucao_classificacao_long).mark_bar(point=True).encode(
@@ -71,4 +77,32 @@ final_chart = chart + text
 
 
 st.altair_chart(final_chart, use_container_width=True)
+
+
+
+for year in year_range:
+    for school_type in selected_schools:
+        year_school_data = df_escolas_defas_unpivoted[(df_escolas_defas_unpivoted['Ano'] == year) & (df_escolas_defas_unpivoted['CategoriaEscola_Instituição de ensino'] == school_type)]
+        defasagem_totals = year_school_data.groupby('Defasagem_categoria')['Value'].sum().reset_index()
+        defasagem_totals["Percentage"] = (defasagem_totals["Value"] / defasagem_totals["Value"].sum()) * 100
+        
+        chart = (
+            alt.Chart(defasagem_totals)
+            .mark_arc()
+            .encode(
+                theta=alt.Theta(field="Value", type="quantitative"),
+                color=alt.Color(field="Defasagem_categoria", type="nominal", legend=alt.Legend(title="Defasagem Categoria")),
+                tooltip=["Defasagem_categoria", "Value", alt.Tooltip("Percentage:Q", format=".1f", title="%")]
+            )
+            .properties(title=f"{school_type} - {year}", width=100, height=100)
+        )
+        
+        charts.append(chart)
+
+
+charts_1 = charts[:3]
+charts_2 = charts[3:]
+
+st.altair_chart(alt.hconcat(*charts_1), use_container_width=True)
+st.altair_chart(alt.hconcat(*charts_2), use_container_width=True)
 
