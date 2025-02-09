@@ -89,6 +89,7 @@ st.altair_chart(final_chart, use_container_width=True)
 
 df_escolas_defas_unpivoted = handler.df_escolas_defas_unpivoted()
 
+charts = []
 
 for year in year_range:
     for school_type in selected_schools:
