@@ -46,8 +46,8 @@ df_escolas_pedra_unpivoted = handler.df_escolas_pedra_unpivoted()
 st.write(df_escolas_pedra_unpivoted)
 
 df_escolas_pedra_unpivoted = df_escolas_pedra_unpivoted[
-        (df_escolas_pedra_unpivoted["SiglaPeriodo"] >= year_range[0]) &
-        (df_escolas_pedra_unpivoted["SiglaPeriodo"] <= year_range[1])
+        (df_escolas_pedra_unpivoted["Ano"] >= year_range[0]) &
+        (df_escolas_pedra_unpivoted["Ano"] <= year_range[1])
     ]
 
 chart = alt.Chart(df_escolas_pedra_unpivoted).mark_bar().encode(
