@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from client.prepare_data from PrepareData
+from client.prepare_data import PrepareData
 
 handler = PrepareData()
 
