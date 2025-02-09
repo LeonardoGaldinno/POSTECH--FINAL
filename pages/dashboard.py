@@ -5,7 +5,7 @@ import altair as alt
 
 handler = PrepareData()
 
-Function signature[source]
+
 st.set_page_config(layout="centered")
 
 st.subheader("Filtros Interativos")
