@@ -1,18 +1,9 @@
 import streamlit as st
 import pandas as pd
+from client.prepare_data from PrepareData
 
-# col_dash, col_filters = st.columns([5, 1])
+handler = PrepareData()
 
-# with col_filters:
-
-#     st.subheader("Filtros Interativos")
-#     year_range = st.slider("Selecione o período:", 2019, 2024,(2020,2022))
-
-#     genres = ["Action", "Adventure", "Biography", "Comedy", "Drama", "Horror"]
-#     selected_genres = st.multiselect("Selecione os gêneros:", genres, default=["Action", "Comedy"])
-
-
-#     st.write(f"Analisando de {year_range[0]} até {year_range[1]} para os gêneros: {', '.join(selected_genres)}.")
 
 st.subheader("Filtros Interativos")
 year_range = st.slider("Selecione o período:", 2019, 2024,(2020,2022))
@@ -22,5 +13,25 @@ selected_genres = st.multiselect("Selecione os gêneros:", genres, default=["Act
 
 st.write(year_range)
 
+col1, col2 = st.columns(2)
 
-st.write(f"Analisando de {year_range[0]} até {year_range[1]} para os gêneros: {', '.join(selected_genres)}.")
+with col1:
+    
+    evolucao_classificacao_long = handler.evolucao_classificacao_long()
+    st.write(evolucao_classificacao_long)
+    chart = alt.Chart(evolucao_classificacao_long).mark_line(point=True).encode(
+        x='SiglaPeriodo:O',
+        y='NumeroDeAlunos:Q',
+        color='ClassificacaoDescricao:N',
+        tooltip=['SiglaPeriodo', 'ClassificacaoDescricao', 'NumeroDeAlunos']
+    ).properties(
+        title='Evolução das Classificações ao Longo dos Anos',
+        width=600,
+        height=400
+    )
+
+
+    st.altair_chart(chart, use_container_width=True)
+
+    
+

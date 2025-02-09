@@ -1,5 +1,4 @@
 import streamlit as st
-from client.database import BigQuery
 from client.prepare_data import PrepareData
 import altair as alt 
 import matplotlib.pyplot as plt
@@ -7,8 +6,7 @@ import seaborn as sns
 
 
 handler = PrepareData()
-client = BigQuery()
-periododf = client.load_table('tbDados')
+
 
 st.header("Base de Dados")
 st.write("""
@@ -30,30 +28,9 @@ st.write("""Por outro lado, as escolas públicas mostraram um crescimento em alg
 
 st.write("""Essas observações indicam que, embora as escolas públicas tenham feito progressos notáveis até 2023, o desempenho não se manteve de forma consistente, com uma leve queda em 2024. Já as escolas particulares mostraram estabilidade e continuidade no alto desempenho, o que aponta para a necessidade da Passos Mágicos de reforçar as estratégias nas escolas públicas, a fim de consolidar os avanços e evitar retrocessos.""")
 
-# # Criar a figura
-# fig, ax = plt.subplots(figsize=(12, 6))
 
-# sns.lineplot(
-#     x='Ano', y='Valor', hue='CategoriaEscola_Instituição de ensino', style='Metrica',
-#     data=df_escolas_perf_unpivoted, markers=True, markersize=8, ax=ax
-# )
-
-# ax.set_title('Mediana das Métricas por Ano e Categoria de Escola')
-# ax.set_xlabel('Ano')
-# ax.set_ylabel('Mediana')
-# ax.set_xticks(df_escolas_perf_unpivoted['Ano'].unique())
-# ax.legend(title='Categoria / Métrica', bbox_to_anchor=(1.05, 1), loc='upper left')
-# ax.grid(True, linestyle='--', alpha=0.5)
-
-# # Exibir no Streamlit
-# st.pyplot(fig)
-
-# Criar o gráfico em Altair
-df = df_escolas_perf_unpivoted.copy()
-
-# Criar o gráfico em Altair
 grafico = (
-    alt.Chart(df)
+    alt.Chart(df_escolas_perf_unpivoted)
     .mark_line()
     .encode(
         x=alt.X("Ano:O", title="Ano", axis=alt.Axis(labelAngle=0)),
@@ -63,9 +40,8 @@ grafico = (
     )
 )
 
-# Adicionar marcadores diferentes por Métrica
 pontos = (
-    alt.Chart(df)
+    alt.Chart(df_escolas_perf_unpivoted)
     .mark_point()
     .encode(
         x="Ano:O",
@@ -75,12 +51,10 @@ pontos = (
     )
 )
 
-# Combinar os gráficos
 grafico_final = (grafico + pontos).properties(title="Mediana das Métricas por Ano e Categoria de Escola", width=700, height=400)
 
-# Exibir no Streamlit
 st.altair_chart(grafico_final, use_container_width=True)
-st.write(df_escolas_perf_unpivoted)
+
 
 
 ### --------------- MÉTRICAS POR ANO E ESCOLA --------------------- ###
@@ -102,31 +76,6 @@ st.write("""Enquanto as escolas particulares conseguiram erradicar a defasagem s
 
 st.write("""Por fim, Verificamos também a diminuição da defasagem moderada e aumento dos Alunos em Fase tanto nas escolas particulares quanto nas públicas, indicando um bom progresso.
 """)
-
-# sns.set_theme(style="whitegrid")
-
-# fig, axes = plt.subplots(3, 2, figsize=(10, 8))
-
-# years = df_escolas_defas_unpivoted['Ano'].unique()
-# school_types = df_escolas_defas_unpivoted['CategoriaEscola_Instituição de ensino'].unique()
-
-# for i, year in enumerate(years):
-#     for j, school_type in enumerate(school_types):
-#         year_school_data = df_escolas_defas_unpivoted[(df_escolas_defas_unpivoted['Ano'] == year) &
-#                                                       (df_escolas_defas_unpivoted['CategoriaEscola_Instituição de ensino'] == school_type)]
-#         defasagem_totals = year_school_data.groupby('Defasagem_categoria')['Value'].sum()
-
-#         ax = axes[i, j]
-#         defasagem_totals.plot.pie(autopct='%1.1f%%', startangle=90, colors=sns.color_palette("Set2", len(defasagem_totals)), ax=ax)
-
-#         ax.set_title(f'{school_type} - {year}')
-#         ax.set_ylabel('')
-
-# plt.suptitle('Defasagem de alunos por categoria de escola e ano', fontsize=16)
-# plt.tight_layout()
-
-# st.pyplot(fig)
-
 
 
 charts = []
@@ -153,7 +102,7 @@ for year in years:
         
         charts.append(chart)
 
-# Organizar os gráficos em um layout empilhado
+
 charts_1 = charts[:3]
 charts_2 = charts[3:]
 
@@ -184,23 +133,6 @@ st.write("""Podemos observar que, nas escolas públicas, de 2020 a 2022, 80% dos
 
 st.write("""Isso mostra que o setor público enfrentou mais dificuldades ao longo dos anos de ter um número considerável de alunos atingindo níveis máximos das pedras.
 """)
-# fig, ax = plt.subplots(figsize=(10, 3))
-# ax = sns.barplot(x='Ano', y='Valor', hue='CategoriaEscola_Instituição de ensino', data=df_escolas_pedra_unpivoted, palette="tab10")
-# ax.set_title('Percentil 80 da Métrica Pedra por Ano e Categoria de Escola')
-# ax.set_xlabel('Ano')
-# ax.set_ylabel('Valor do Percentil 80')
-# ax.legend(title='Categoria de Escola', bbox_to_anchor=(1.02, 1), loc='upper left')
-
-# for p in ax.patches:
-#     if p.get_height() != 0.0:
-#         ax.annotate(format(p.get_height(), '.2f'),
-#                     (p.get_x() + p.get_width() / 2., p.get_height() / 2),
-#                     ha='center', va='center',
-#                     xytext=(0, 0),
-#                     textcoords='offset points')
-
-# plt.tight_layout()
-# st.pyplot(fig)
 
 chart = alt.Chart(df_escolas_pedra_unpivoted).mark_bar().encode(
     x='Ano:N',
@@ -212,7 +144,6 @@ chart = alt.Chart(df_escolas_pedra_unpivoted).mark_bar().encode(
     height=300
 )
 
-# Adicionar os valores no topo das barras
 text = alt.Chart(df_escolas_pedra_unpivoted).mark_text(dy=-10, color='black').encode(
     x='Ano:N',
     y='Valor:Q',
@@ -220,10 +151,9 @@ text = alt.Chart(df_escolas_pedra_unpivoted).mark_text(dy=-10, color='black').en
     color='CategoriaEscola_Instituição de ensino:N'
 )
 
-# Combinar o gráfico de barras com os textos
 final_chart = chart + text
 
-# Exibir no Streamlit
+
 st.altair_chart(final_chart, use_container_width=True)
 
 ### --------------- MÉTRICA PEDRA POR ANO E ESCOLA --------------------- ###
@@ -232,6 +162,9 @@ st.divider()
 
 
 ### --------------- DF PERÍODO ------------------------------------###
+
+df_distribuicao = handler.df_distribuicao()
+
 st.markdown("""#### Análise de distribuição da classificação dos alunos.""")
 
 st.write("""O gráfico apresentado ilustra a distribuição das classificações dos alunos em três categorias distintas: "1 - Bom", "2 - Regular" e "3 - Ruim". Essa visualização permite uma análise que facilita a identificação de áreas que podem necessitar de atenção e intervenção.""")
@@ -242,10 +175,6 @@ st.write("""Na categoria "1 - Bom", observamos que um número considerável de a
 st.write("""A classificação "2 - Regular" é a que apresenta o maior número de alunos, superando as demais categorias. Essa predominância sugere que a maioria dos alunos está em um nível de desempenho considerado regular. Essa situação pode ser interpretada como um sinal de que muitos alunos estão se saindo adequadamente, mas também aponta para a necessidade de estratégias de melhoria, uma vez que um desempenho regular pode não ser suficiente para garantir o sucesso acadêmico a longo prazo.""")
 
 st.write("""Por fim, a categoria "3 - Ruim" apresenta o menor número de alunos, o que é um aspecto positivo, pois indica que a maioria dos alunos não está em um nível de desempenho baixo. No entanto, essa faixa ainda precisa de atenção, pois os alunos classificados como "ruim" podem necessitar de suporte adicional para melhorar seu desempenho. Em suma, o gráfico sugere que, enquanto a maioria dos alunos está em um nível regular, há uma quantidade significativa que se destaca como bons, e a presença de alunos com desempenho ruim deve ser abordada para garantir que todos tenham a oportunidade de progredir academicamente.""")
-
-df_distribuicao = periododf.copy()
-
-df_distribuicao['ClassificacaoDescricao'] = df_distribuicao['ClassificacaoDescricao'].map({1: '1 - Bom', 2: '2 - Regular', 3: '3 - Ruim'})
 
 
 chart = alt.Chart(df_distribuicao).mark_bar().encode(
@@ -268,6 +197,8 @@ st.divider()
 
 ### --------------- DF EVOLUÇÃO -----------------------------------###
 
+evolucao_classificacao_long = handler.evolucao_classificacao_long()
+
 st.markdown("""#### Análise da evolução das Classificações ao Longo dos Anos""")
 
 st.write("""O gráfico ilustra a evolução do número de alunos em três classificações diferentes ao longo dos anos de 2021 a 2024. Essa análise permite ter clareza das tendências de desempenho acadêmico dos alunos ao longo do tempo, facilitando a identificação de padrões e mudanças significativas nas classificações. A visualização dos dados é fundamental para entender como os alunos estão se saindo em diferentes categorias e para identificar áreas que podem necessitar de intervenções.""")
@@ -280,22 +211,6 @@ st.write("""A Classificação 3, representada pela linha verde, começou com um 
 
 
 
-alunos_classificacao_3_2021 = periododf[(periododf['ClassificacaoDescricao'] == 3) & (periododf['SiglaPeriodo'] == 2021)]
-
-# Obter os IDs dos aluno
-alunos_ids = alunos_classificacao_3_2021['IdAluno'].unique()
-
-# Filtrar os dados para esses alunos nos anos subsequentes
-evolucao_alunos = periododf[periododf['IdAluno'].isin(alunos_ids)]
-
-# Agrupar os dados por ano e classificação
-evolucao_classificacao = evolucao_alunos.groupby(['SiglaPeriodo', 'ClassificacaoDescricao']).size().unstack(fill_value=0)
-
-# Resetando o índice para transformar os dados em formato longo
-evolucao_classificacao_long = evolucao_classificacao.reset_index().melt(id_vars=['SiglaPeriodo'], var_name='ClassificacaoDescricao', value_name='NumeroDeAlunos')
-
-
-# Criar o gráfico com Altair
 chart = alt.Chart(evolucao_classificacao_long).mark_line(point=True).encode(
     x='SiglaPeriodo:O',
     y='NumeroDeAlunos:Q',
@@ -307,7 +222,7 @@ chart = alt.Chart(evolucao_classificacao_long).mark_line(point=True).encode(
     height=400
 )
 
-# Exibir o gráfico no Streamlit
+
 st.altair_chart(chart, use_container_width=True)
 
 

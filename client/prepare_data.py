@@ -11,6 +11,37 @@ class PrepareData:
         self.classificador = Classificador()
         self.utils = Utils()
 
+    def periododf(self):
+        periododf = client.load_table('tbDados')
+        
+        return periododf
+
+    def df_distribuicao(self):
+        df_distribuicao = self.periododf()
+
+        df_distribuicao['ClassificacaoDescricao'] = df_distribuicao['ClassificacaoDescricao'].map({1: '1 - Bom', 2: '2 - Regular', 3: '3 - Ruim'})
+
+        return df_distribuicao
+
+    def evolucao_classificacao_long(self):
+
+        periododf = self.periododf()
+        
+        alunos_classificacao_3_2021 = periododf[(periododf['ClassificacaoDescricao'] == 3) & (periododf['SiglaPeriodo'] == 2021)]
+
+
+        alunos_ids = alunos_classificacao_3_2021['IdAluno'].unique()
+
+        evolucao_alunos = periododf[periododf['IdAluno'].isin(alunos_ids)]
+
+        evolucao_classificacao = evolucao_alunos.groupby(['SiglaPeriodo', 'ClassificacaoDescricao']).size().unstack(fill_value=0)
+
+        evolucao_classificacao_long = evolucao_classificacao.reset_index().melt(id_vars=['SiglaPeriodo'], var_name='ClassificacaoDescricao', value_name='NumeroDeAlunos')
+
+        return evolucao_classificacao_long
+
+
+
     def df_pede_merged(self):
         df_pede_passos_tab2022 = self.client.load_table('tbPede2022')
         df_pede_passos_tab2023 = self.client.load_table('tbPede2023')
