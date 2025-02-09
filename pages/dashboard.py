@@ -25,7 +25,7 @@ with col1:
         (evolucao_classificacao_long["SiglaPeriodo"] <= year_range[1])
     ]
 
-    chart = alt.Chart(evolucao_classificacao_long).mark_line(point=True).encode(
+    chart = alt.Chart(evolucao_classificacao_long).mark_bar(point=True).encode(
         x='SiglaPeriodo:O',
         y='NumeroDeAlunos:Q',
         color='ClassificacaoDescricao:N',
