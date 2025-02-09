@@ -19,7 +19,7 @@ selected_classification = st.multiselect("Selecione a classificação do aluno:"
 
 
 
-# ------------------ DF EVOLUÇÃO ----------------------------------#
+# ---------------------------------------------------------------#
         
 evolucao_classificacao_long = handler.evolucao_classificacao_long()
 
@@ -47,7 +47,7 @@ chart = alt.Chart(evolucao_classificacao_long).mark_bar(point=True).encode(
 
 st.altair_chart(chart, use_container_width=True)
 
-# ------------------ DF EVOLUÇÃO ----------------------------------#
+# ---------------------------------------------------------------#
 
 df_escolas_pedra_unpivoted = handler.df_escolas_pedra_unpivoted()
 
@@ -84,6 +84,10 @@ final_chart = chart + text
 
 st.altair_chart(final_chart, use_container_width=True)
 
+
+# ---------------------------------------------------------------#
+
+df_escolas_defas_unpivoted = handler.df_escolas_defas_unpivoted()
 
 
 for year in year_range:
