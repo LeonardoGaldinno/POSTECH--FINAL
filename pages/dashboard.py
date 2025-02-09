@@ -110,6 +110,6 @@ chart = (
         
 
 
-st.altair_chart(final_chart, use_container_width=True)
+st.altair_chart(chart, use_container_width=True)
 
 
