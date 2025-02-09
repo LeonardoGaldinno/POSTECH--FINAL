@@ -58,7 +58,7 @@ df_escolas_pedra_unpivoted = df_escolas_pedra_unpivoted[
     ]
 
 df_escolas_pedra_unpivoted = df_escolas_pedra_unpivoted[
-    df_escolas_pedra_unpivoted["CategoriaEscola_Instituição"].isin(selected_schools)
+    df_escolas_pedra_unpivoted["CategoriaEscola_Instituição de ensino"].isin(selected_schools)
 ]
 
 
