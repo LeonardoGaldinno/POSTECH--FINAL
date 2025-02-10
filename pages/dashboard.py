@@ -11,8 +11,15 @@ st.set_page_config(layout="centered")
 st.subheader("Filtros Interativos")
 year_range = st.slider("Selecione o período:", 2021, 2024,(2021,2022))
 
-schools = ["Escolas Públicas", "Escolas Particulares"]
-selected_schools = st.multiselect("Selecione o Instituição de Ensino:", schools, default=["Escolas Públicas", "Escolas Particulares"])
+schools = []
+private_school = st.checkbox("Escolas Particulares")
+public_school = st.checkbox("Escolas Públicas")
+
+if private_school:
+    schools.append("Escolas Particulares")
+
+if public_school:
+    schools.append("Escolas Públicas")
 
 classification = [1, 2, 3]
 selected_classification = st.multiselect("Selecione a classificação do aluno:", classification, default=[1,2,3])
@@ -58,7 +65,7 @@ df_escolas_pedra_unpivoted = df_escolas_pedra_unpivoted[
     ]
 
 df_escolas_pedra_unpivoted = df_escolas_pedra_unpivoted[
-    df_escolas_pedra_unpivoted["CategoriaEscola_Instituição de ensino"].isin(selected_schools)
+    df_escolas_pedra_unpivoted["CategoriaEscola_Instituição de ensino"].isin(schools)
 ]
 
 
@@ -92,7 +99,7 @@ df_escolas_defas_unpivoted = handler.df_escolas_defas_unpivoted()
 
 
 year_school_data = df_escolas_defas_unpivoted[(df_escolas_defas_unpivoted['Ano'] == year_range[0]) & (df_escolas_defas_unpivoted['Ano'] == year_range[1])]
-year_school_data = df_escolas_defas_unpivoted[df_escolas_defas_unpivoted['CategoriaEscola_Instituição de ensino'].isin(selected_schools)]
+year_school_data = df_escolas_defas_unpivoted[df_escolas_defas_unpivoted['CategoriaEscola_Instituição de ensino'].isin(schools)]
 
 
 defasagem_totals = year_school_data.groupby('Defasagem_categoria')['Value'].sum().reset_index()
@@ -106,7 +113,7 @@ chart = (
         color=alt.Color(field="Defasagem_categoria", type="nominal", legend=alt.Legend(title="Defasagem Categoria")),
         tooltip=["Defasagem_categoria", "Value", alt.Tooltip("Percentage:Q", format=".1f", title="%")]
     )
-    .properties(title=f"Defasagem de alunos no anos {year_range} e {selected_schools}", width=300, height=300)
+    .properties(title=f"Defasagem de alunos no anos {year_range} e {schools}", width=300, height=300)
 )
         
 
