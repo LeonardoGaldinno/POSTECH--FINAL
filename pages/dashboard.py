@@ -27,19 +27,19 @@ with col1:
 
 with col2:
     selected_classification = []
-        st.markdown("""### Selecione a classificação do aluno""")
-        good = st.checkbox("1 - Desempenho Bom ")
-        regular = st.checkbox("2 - Desempenho Regular")
-        bad = st.checkbox("3 - Desempenho Inferior")
+    st.markdown("""### Selecione a classificação do aluno""")
+    good = st.checkbox("1 - Desempenho Bom ")
+    regular = st.checkbox("2 - Desempenho Regular")
+    bad = st.checkbox("3 - Desempenho Inferior")
 
-        if good:
-            schools.append(1)
+    if good:
+        schools.append(1)
 
-        if regular:
-            schools.append(2)
+    if regular:
+        schools.append(2)
 
-        if bad:
-            schools.append(3)
+    if bad:
+        schools.append(3)
 
 
 
