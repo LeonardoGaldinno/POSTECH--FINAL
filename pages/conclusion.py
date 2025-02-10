@@ -1,7 +1,7 @@
 import streamlit as st
 
 
-st.title("# Conclusão")
+st.title("Conclusão")
 
 st.write("""A análise dos indicadores educacionais de 2022 a 2024 revela um panorama complexo e dinâmico nas escolas particulares e públicas. Enquanto as escolas particulares demonstram um desempenho robusto e consistente, com a eliminação da defasagem severa e a manutenção de altos índices de desenvolvimento, as escolas públicas enfrentam desafios significativos que exigem atenção e ação imediata. A leve queda em indicadores cruciais em 2024 sugere a necessidade de estratégias mais eficazes para consolidar os avanços alcançados e garantir que todos os alunos possam prosperar.""")
 
