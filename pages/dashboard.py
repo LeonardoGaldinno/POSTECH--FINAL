@@ -16,26 +16,31 @@ col1, col2 = st.columns(2)
 with col1:
 
     selected_classification = []
-    st.markdown("""#### Selecione a classificação do aluno""")
+    st.markdown("""###Selecione a classificação do aluno""")
     good = st.checkbox("1 - Desempenho Bom ")
     regular = st.checkbox("2 - Desempenho Regular")
     bad = st.checkbox("3 - Desempenho Inferior")
 
     if good:
         schools.append(1)
-
+        
     if regular:
         schools.append(2)
 
     if bad:
         schools.append(3)
 
+    if len(selected_classification) = 0:
+
+        selected_classification = [1,2,3]
+
+
 
 
 with col2:
     
     schools = []
-    st.markdown("""#### Selecione a Instituição de Ensino""")
+    st.markdown("""###Selecione a Instituição de Ensino""")
     private_school = st.checkbox("Escolas Particulares")
     public_school = st.checkbox("Escolas Públicas")
 
@@ -46,7 +51,7 @@ with col2:
         schools.append("Escolas Públicas")
     
 
-
+st.divider()
 
 # ---------------------------------------------------------------#
         
