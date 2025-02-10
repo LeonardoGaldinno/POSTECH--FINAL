@@ -51,6 +51,10 @@ with col2:
 
     if public_school:
         schools.append("Escolas Públicas")
+
+    if len(schools) == 0:
+
+        schools = ["Escolas Públicas","Escolas Particulares"]
     
 
 st.divider()
