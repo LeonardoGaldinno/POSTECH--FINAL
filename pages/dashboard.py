@@ -30,7 +30,7 @@ with col1:
     if bad:
         schools.append(3)
 
-    if len(selected_classification) = 0:
+    if len(selected_classification) == 0:
 
         selected_classification = [1,2,3]
 
