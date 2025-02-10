@@ -14,20 +14,9 @@ year_range = st.slider("Selecione o período:", 2021, 2024,(2021,2022))
 col1, col2 = st.columns(2)
 
 with col1:
-    schools = []
-    st.markdown("""### Selecione a Instituição de Ensino""")
-    private_school = st.checkbox("Escolas Particulares")
-    public_school = st.checkbox("Escolas Públicas")
 
-    if private_school:
-        schools.append("Escolas Particulares")
-
-    if public_school:
-        schools.append("Escolas Públicas")
-
-with col2:
     selected_classification = []
-    st.markdown("""### Selecione a classificação do aluno""")
+    st.markdown("""####Selecione a classificação do aluno""")
     good = st.checkbox("1 - Desempenho Bom ")
     regular = st.checkbox("2 - Desempenho Regular")
     bad = st.checkbox("3 - Desempenho Inferior")
@@ -41,6 +30,21 @@ with col2:
     if bad:
         schools.append(3)
 
+
+
+with col2:
+    
+    schools = []
+    st.markdown("""####Selecione a Instituição de Ensino""")
+    private_school = st.checkbox("Escolas Particulares")
+    public_school = st.checkbox("Escolas Públicas")
+
+    if private_school:
+        schools.append("Escolas Particulares")
+
+    if public_school:
+        schools.append("Escolas Públicas")
+    
 
 
 
