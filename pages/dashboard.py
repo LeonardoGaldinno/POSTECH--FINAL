@@ -24,13 +24,13 @@ with col1:
     bad = st.checkbox("3 - Desempenho Inferior")
 
     if good:
-        schools.append(1)
+        selected_classification.append(1)
         
     if regular:
-        schools.append(2)
+        selected_classification.append(2)
 
     if bad:
-        schools.append(3)
+        selected_classification.append(3)
 
     if len(selected_classification) == 0:
 
