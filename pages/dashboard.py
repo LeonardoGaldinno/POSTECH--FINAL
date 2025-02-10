@@ -11,18 +11,36 @@ st.set_page_config(layout="centered")
 st.subheader("Filtros Interativos")
 year_range = st.slider("Selecione o período:", 2021, 2024,(2021,2022))
 
-schools = []
-private_school = st.checkbox("Escolas Particulares")
-public_school = st.checkbox("Escolas Públicas")
+col1, col2 = st.columns(2)
 
-if private_school:
-    schools.append("Escolas Particulares")
+with col1:
+    schools = []
+    st.markdown("""### Selecione a Instituição de Ensino""")
+    private_school = st.checkbox("Escolas Particulares")
+    public_school = st.checkbox("Escolas Públicas")
 
-if public_school:
-    schools.append("Escolas Públicas")
+    if private_school:
+        schools.append("Escolas Particulares")
 
-classification = [1, 2, 3]
-selected_classification = st.multiselect("Selecione a classificação do aluno:", classification, default=[1,2,3])
+    if public_school:
+        schools.append("Escolas Públicas")
+
+with col2:
+    selected_classification = []
+        st.markdown("""### Selecione a classificação do aluno""")
+        good = st.checkbox("1 - Desempenho Bom ")
+        regular = st.checkbox("2 - Desempenho Regular")
+        bad = st.checkbox("3 - Desempenho Inferior")
+
+        if good:
+            schools.append(1)
+
+        if regular:
+            schools.append(2)
+
+        if bad:
+            schools.append(3)
+
 
 
 
