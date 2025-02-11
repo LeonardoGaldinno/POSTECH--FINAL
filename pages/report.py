@@ -1,11 +1,11 @@
 import streamlit as st
-from client.prepare_data import PrepareData
+from client.database import BigQuery
 import altair as alt 
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 
-handler = PrepareData()
+client = BigQuery()
 
 
 st.header("Base de Dados")
@@ -18,7 +18,7 @@ st.divider()
 
 ### --------------- MÉTRICAS POR ANO E ESCOLA--------------------- ###
 
-df_escolas_perf_unpivoted = handler.df_escolas_perf_unpivoted()
+df_escolas_perf_unpivoted = client.load_table("df_escolas_perf_unpivoted")
 
 st.markdown("""### Mediana das Métricas por Ano e Categoria de Escola""")
 st.write("""Ao analisar os dados dos indicadores educacionais de 2022 a 2024, podemos perceber algumas tendências importantes tanto nas escolas particulares quanto nas públicas.""")
@@ -64,7 +64,7 @@ st.divider()
 
 ### --------------- DEFASAGEM DE ALUNOS POR ESCOLA E ANO --------------------- ###
 
-df_escolas_defas_unpivoted = handler.df_escolas_defas_unpivoted()
+df_escolas_defas_unpivoted = client.load_table("df_escolas_defas_unpivoted")
 
 st.markdown("""### Defasagem de alunos por categoria de escola e ano""")
 
@@ -115,7 +115,7 @@ st.divider()
 
 ### --------------- MÉTRICA PEDRA POR ANO E ESCOLA --------------------- ###
 
-df_escolas_pedra_unpivoted = handler.df_escolas_pedra_unpivoted()
+df_escolas_pedra_unpivoted = client.load_table("df_escolas_pedra_unpivoted")
 
 
 st.title('Percentil 80 da Métrica Pedra por Ano e Categoria de Escola')
@@ -163,7 +163,7 @@ st.divider()
 
 ### --------------- DF PERÍODO ------------------------------------###
 
-df_distribuicao = handler.df_distribuicao()
+df_distribuicao = client.load_table("df_distribuicao")
 
 st.markdown("""#### Análise de distribuição da classificação dos alunos.""")
 
@@ -197,7 +197,7 @@ st.divider()
 
 ### --------------- DF EVOLUÇÃO -----------------------------------###
 
-evolucao_classificacao_long = handler.evolucao_classificacao_long()
+evolucao_classificacao_long = client.load_table('evolucao_classificacao_long')
 
 st.markdown("""#### Análise da evolução das Classificações ao Longo dos Anos""")
 

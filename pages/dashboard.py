@@ -1,9 +1,9 @@
 import streamlit as st
 import pandas as pd
-from client.prepare_data import PrepareData
+from client.database import BigQuery
 import altair as alt
 
-handler = PrepareData()
+client = BigQuery()
 
 
 st.set_page_config(layout="centered")
@@ -61,7 +61,7 @@ st.divider()
 
 # ---------------------------------------------------------------#
         
-evolucao_classificacao_long = handler.evolucao_classificacao_long()
+evolucao_classificacao_long = client.load_table("evolucao_classificacao_long")
 
 evolucao_classificacao_long = evolucao_classificacao_long[
         (evolucao_classificacao_long["SiglaPeriodo"] >= year_range[0]) &
@@ -89,7 +89,7 @@ st.altair_chart(chart, use_container_width=True)
 
 # ---------------------------------------------------------------#
 
-df_escolas_pedra_unpivoted = handler.df_escolas_pedra_unpivoted()
+df_escolas_pedra_unpivoted = client.load_table("df_escolas_pedra_unpivoted")
 
 
 df_escolas_pedra_unpivoted = df_escolas_pedra_unpivoted[
@@ -128,7 +128,7 @@ st.altair_chart(final_chart, use_container_width=True)
 
 # ---------------------------------------------------------------#
 
-df_escolas_defas_unpivoted = handler.df_escolas_defas_unpivoted()
+df_escolas_defas_unpivoted = client.load_table("df_escolas_defas_unpivoted")
 
 
 year_school_data = df_escolas_defas_unpivoted[(df_escolas_defas_unpivoted['Ano'] == year_range[0]) & (df_escolas_defas_unpivoted['Ano'] == year_range[1])]
@@ -152,5 +152,43 @@ chart = (
 
 
 st.altair_chart(chart, use_container_width=True)
+
+#-----------------------------------------------------------------------------------#
+
+df_escolas_perf_unpivoted = df_escolas_perf_unpivoted[
+        (df_escolas_perf_unpivoted["Ano"] >= year_range[0]) &
+        (df_escolas_perf_unpivoted["Ano"] <= year_range[1])
+    ]
+
+df_escolas_perf_unpivoted = df_escolas_perf_unpivoted[
+    df_escolas_perf_unpivoted['CategoriaEscola_Instituição de ensino'].isin(selected_classification)
+]
+
+
+grafico = (
+    alt.Chart(df_escolas_perf_unpivoted)
+    .mark_line()
+    .encode(
+        x=alt.X("Ano:O", title="Ano", axis=alt.Axis(labelAngle=0)),
+        y=alt.Y("Valor:Q", title="Mediana"),
+        color=alt.Color("CategoriaEscola_Instituição de ensino:N", title="Categoria"),
+        strokeDash=alt.StrokeDash("Metrica:N", title="Métrica")
+    )
+)
+
+pontos = (
+    alt.Chart(df_escolas_perf_unpivoted)
+    .mark_point()
+    .encode(
+        x="Ano:O",
+        y="Valor:Q",
+        color="CategoriaEscola_Instituição de ensino:N",
+        shape="Metrica:N"
+    )
+)
+
+grafico_final = (grafico + pontos).properties(title="Mediana das Métricas por Ano e Categoria de Escola", width=700, height=400)
+
+st.altair_chart(grafico_final, use_container_width=True)
 
 
