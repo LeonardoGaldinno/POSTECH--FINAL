@@ -156,7 +156,6 @@ st.altair_chart(chart, use_container_width=True)
 #-----------------------------------------------------------------------------------#
 
 df_escolas_perf_unpivoted = client.load_table("df_escolas_perf_unpivoted")
-st.write(df_escolas_perf_unpivoted)
 
 df_escolas_perf_unpivoted_ = df_escolas_perf_unpivoted[
         (df_escolas_perf_unpivoted["Ano"] >= year_range[0]) &
@@ -180,7 +179,7 @@ grafico = (
 )
 
 pontos = (
-    alt.Chart(df_escolas_perf_unpivoted)
+    alt.Chart(df_escolas_perf_unpivoted_)
     .mark_point()
     .encode(
         x="Ano:O",
