@@ -166,7 +166,7 @@ df_escolas_perf_unpivoted = df_escolas_perf_unpivoted[
     df_escolas_perf_unpivoted['CategoriaEscola_Instituição de ensino'].isin(selected_classification)
 ]
 
-
+st.write(df_escolas_perf_unpivoted)
 grafico = (
     alt.Chart(df_escolas_perf_unpivoted)
     .mark_line()
