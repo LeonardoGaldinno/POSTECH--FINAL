@@ -157,18 +157,18 @@ st.altair_chart(chart, use_container_width=True)
 
 df_escolas_perf_unpivoted = client.load_table("df_escolas_perf_unpivoted")
 
-df_escolas_perf_unpivoted_ = df_escolas_perf_unpivoted[
+df_escolas_perf_unpivoted = df_escolas_perf_unpivoted[
         (df_escolas_perf_unpivoted["Ano"] >= year_range[0]) &
         (df_escolas_perf_unpivoted["Ano"] <= year_range[1])
     ]
 
-df_escolas_perf_unpivoted_ = df_escolas_perf_unpivoted[
-    df_escolas_perf_unpivoted['CategoriaEscola_Instituição de ensino'].isin(selected_classification)
+df_escolas_perf_unpivoted = df_escolas_perf_unpivoted[
+    df_escolas_perf_unpivoted['CategoriaEscola_Instituição de ensino'].isin(schools)
 ]
 
 
 grafico = (
-    alt.Chart(df_escolas_perf_unpivoted_)
+    alt.Chart(df_escolas_perf_unpivoted)
     .mark_line()
     .encode(
         x=alt.X("Ano:O", title="Ano", axis=alt.Axis(labelAngle=0)),
@@ -179,7 +179,7 @@ grafico = (
 )
 
 pontos = (
-    alt.Chart(df_escolas_perf_unpivoted_)
+    alt.Chart(df_escolas_perf_unpivoted)
     .mark_point()
     .encode(
         x="Ano:O",
