@@ -4,7 +4,7 @@ import numpy as np
 
 st.markdown('long_about_text')
 
-modelo = joblib.load('model (1).pkl')
+modelo = joblib.load('model.pkl')
 
 
 st.title("Modelo de Classificação")
