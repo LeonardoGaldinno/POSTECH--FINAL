@@ -2,7 +2,6 @@ import streamlit as st
 import joblib
 import numpy as np
 
-st.markdown('long_about_text')
 
 modelo = joblib.load('model.pkl')
 
