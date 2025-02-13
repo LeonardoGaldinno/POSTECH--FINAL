@@ -22,7 +22,7 @@ if st.button("Prever pedra"):
     valores = np.array([[ieg, ipv, ida]])
     predicao = modelo.predict(valores)
 
-    import streamlit as st
+    st.write(predicao)
 
 
     if predicao == 4:
