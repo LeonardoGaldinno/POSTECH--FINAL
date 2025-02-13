@@ -20,6 +20,7 @@ ida = st.number_input("Indicador de desenvolvimento acadêmico", value=0.0)
 if st.button("Prever pedra"):
     
     valores = np.array([[ieg, ipv, ida]])
+    st.write(valores)
     predicao = modelo.predict(valores)
 
     st.write(predicao)
