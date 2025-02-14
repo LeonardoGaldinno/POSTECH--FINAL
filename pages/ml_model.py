@@ -31,6 +31,7 @@ if st.button("Prever pedra"):
         '</div>',
         unsafe_allow_html=True
     )
+        st.balloons()
 
     elif predicao == 1:
         cor = "#8A2BE2"  
@@ -64,7 +65,7 @@ if st.button("Prever pedra"):
         '</div>',
         unsafe_allow_html=True
     )
-        st.balloons()
+        
 
  
 
