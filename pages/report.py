@@ -236,7 +236,7 @@ st.title("Ferramentas Estratégicas para Aprimorar Seu Caminho Acadêmico")
 
 st.write(""" Estamos disponibilizando ferramentas que auxiliam os alunos a compreenderem melhor as pedras futuras, com base nos índices IPV, IEG e IDA. Esses indicadores permitem uma análise mais clara do progresso individual, ajudando na identificação de desafios e oportunidades de melhoria. Nosso objetivo é trazer mais transparência ao desenvolvimento acadêmico, fornecendo insights valiosos para cada aluno. Com isso, buscamos incentivar a evolução contínua, permitindo ajustes estratégicos ao longo do tempo. Ao entenderem melhor seu desempenho, os alunos podem tomar decisões mais assertivas. Dessa forma, promovemos um acompanhamento mais eficaz e orientado ao crescimento.""")
 
-st.page_link("pages/ml_model.py", label="Acessar ferramenta")
+st.page_link("pages/ml_model.py", label="Clique aqui para acessar ferramenta")
 
 
 

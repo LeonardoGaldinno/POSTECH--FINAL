@@ -24,25 +24,51 @@ if st.button("Prever pedra"):
     if predicao == 4:
         cor = "#1E90FF"  
         pedra = "Topázio"
-    elif predicao == 1:
-        cor = "#8A2BE2"  
-        pedra = "Ametista"
-    elif predicao == 0:
-        cor = "#FFA500"  
-        pedra = "Àgata"
-    elif predicao == 3:
-        cor = "#D3D3D3"  
-        pedra = "Quartzo"
 
-    # Exibindo a mensagem com a cor personalizada
-    st.markdown(
+        st.markdown(
         f'<div style="background-color: {cor}; padding: 10px; border-radius: 5px; font-size: 20px;">'
-        f'Sua pedra é {pedra}. Excelente trabalho! Você está indo muito bem e sua dedicação está refletindo em seus resultados. Continue assim, você está no caminho certo!'
+        f'Sua pedra é {pedra}. Você está fazendo um trabalho incrível! Continue explorando suas habilidades e aproveitando as oportunidades que surgem.'
         '</div>',
         unsafe_allow_html=True
     )
 
-    st.balloons()
+    elif predicao == 1:
+        cor = "#8A2BE2"  
+        pedra = "Ametista"
+
+        st.markdown(
+        f'<div style="background-color: {cor}; padding: 10px; border-radius: 5px; font-size: 20px;">'
+        f'Sua pedra é {pedra}. Há um bom progresso aqui! Com pequenas mudanças, você pode continuar avançando e atingindo novos patamares.'
+        '</div>',
+        unsafe_allow_html=True
+    )
+
+    elif predicao == 0:
+        cor = "#FFA500"  
+        pedra = "Àgata"
+
+        st.markdown(
+        f'<div style="background-color: {cor}; padding: 10px; border-radius: 5px; font-size: 20px;">'
+        f'Sua pedra é {pedra}. Às vezes, enfrentamos obstáculos, mas isso faz parte do processo. O importante é saber que há sempre oportunidades para aprender e melhorar.'
+        '</div>',
+        unsafe_allow_html=True
+    )
+        
+    elif predicao == 3:
+        cor = "#D3D3D3"  
+        pedra = "Quartzo"
+
+        st.markdown(
+        f'<div style="background-color: {cor}; padding: 10px; border-radius: 5px; font-size: 20px;">'
+        f'Sua pedra é {pedra}. Esta fase pode trazer algumas dificuldades, mas é uma chance para refletir e entender melhor suas necessidades e caminhos. Com paciência, você pode transformar essa experiência em aprendizado valioso.'
+        '</div>',
+        unsafe_allow_html=True
+    )
+        st.balloons()
+
+ 
+
+    
     
     
     
