@@ -1,6 +1,6 @@
 ## Descrição do Projeto
 
-Este projeto tem como objetivo de explorar e analisar dados educacionais de crianças e jovens atendidos pela Passos Mágicos, gerando insights relevantes para apoiar suas ações estratégicas e ampliar o impacto social da organização. A aplicação permite acessar um relatório com insights e um dashboard interativo e proporcionando aos usuários a oportunidade de utilizar um modelo de machine learning para prever as pedras (classificações) dos alunos.
+Este projeto tem como objetivo de explorar e analisar dados educacionais de crianças e jovens atendidos pela Passos Mágicos, gerando insights relevantes para apoiar suas ações estratégicas e ampliar o impacto social da organização. A aplicação permite acessar um relatório com insights e um dashboard interativo e proporciona aos usuários a oportunidade de utilizar um modelo de machine learning para prever as suas futuras pedras (classificações).
 
 ## Estrutura do Repositório
 
